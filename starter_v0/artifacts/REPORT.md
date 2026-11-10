@@ -6,8 +6,8 @@
 
 ## Team
 
-- Team: <!-- TODO: điền tên team -->
-- Members: Nguyễn Văn Vinh <!-- TODO: thêm thành viên khác nếu có -->
+- Team: Captian
+- Members: Nguyễn Văn Vinh
 - Provider/model: OpenRouter / `openai/gpt-4o-mini` (dùng cùng một model cho mọi version)
 
 ---
@@ -18,7 +18,7 @@
 
 Research agent tiếng Việt: tìm tin trên web, xem tweet theo tài khoản hoặc theo chủ đề, đọc và tóm tắt một URL, tra Hacker News / Wikipedia / GitHub / arXiv, tổng hợp thành bản tin markdown, lưu ghi chú trên máy, và chỉ gửi lên Telegram sau khi người dùng xác nhận. Khi thiếu thông tin (không nói tài khoản nào, chưa có link) agent hỏi lại thay vì đoán.
 
-**Link dùng thử (deploy):**
+**Link dùng thử (deploy):** 
 
 > URL: <!-- TODO: dán link trycloudflare.com sau khi chạy `streamlit run app.py` và `cloudflared tunnel --url http://localhost:8501` -->
 
