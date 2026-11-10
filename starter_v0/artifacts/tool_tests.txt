@@ -1,0 +1,9 @@
+Command: .venv/Scripts/python.exe -X utf8 -m pytest -q -p no:cacheprovider
+
+Observed result:
+104 passed in 8.02s
+0 failed, 0 skipped
+
+Includes 2 Streamlit AppTest integration tests using a fake provider and intercepted transcript writes.
+No live API calls or live demo transcripts were produced by these tests.
+The restricted environment emitted a temporary-directory cleanup permission error at interpreter exit; pytest returned exit code 0.

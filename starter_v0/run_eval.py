@@ -101,7 +101,13 @@ def normalize_value(value: Any) -> Any:
     if isinstance(value, str):
         return value.strip().lower()
     if isinstance(value, list):
+        # Source items are objects: Python cannot sort dicts, and their order
+        # matters for tools that preserve the first occurrence of a source.
+        if any(isinstance(item, (dict, list)) for item in value):
+            return [normalize_value(item) for item in value]
         return sorted(normalize_value(item) for item in value)
+    if isinstance(value, dict):
+        return {key: normalize_value(item) for key, item in value.items()}
     return value
 
 

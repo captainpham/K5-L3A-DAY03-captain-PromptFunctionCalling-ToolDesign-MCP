@@ -1,0 +1,10 @@
+{
+  "public_url": "https://melissa-sequences-sing-incidence.trycloudflare.com",
+  "local_url": "http://127.0.0.1:8501",
+  "checked_at": "2026-11-10T12:43:34+07:00",
+  "root_http_status": 200,
+  "health_http_status": 200,
+  "health_body": "ok",
+  "verification": "HTTP and offline Streamlit AppTest; visual browser unavailable",
+  "temporary": true
+}

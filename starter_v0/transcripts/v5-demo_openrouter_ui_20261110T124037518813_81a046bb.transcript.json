@@ -1,0 +1,35 @@
+{
+  "transcript_id": "v5-demo_openrouter_ui_20261110T124037518813_81a046bb",
+  "version": "v5-demo",
+  "artifact_version": "v5-demo+p3e9aef21d9db+t23097cc67187",
+  "prompt_hash": "3e9aef21d9dbe1aceea11d2d278fe813e9aa42b7756472f0215a47ee09d6dc65",
+  "tools_hash": "23097cc671872d1aea4a1526b13e4cb644947b67b58119bef38b2b261c124ba9",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "D:\\AI Thực chiến\\K5-L3A-DAY03-captain-ResearchAgentToolEval\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\AI Thực chiến\\K5-L3A-DAY03-captain-ResearchAgentToolEval\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-10T12:40:37",
+  "updated_at": "2026-11-10T12:40:59",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T12:40:46",
+      "user": "Hoàng Sa Trường Sa là của ai",
+      "status": "answered",
+      "assistant_text": "Hoàng Sa và Trường Sa là hai quần đảo nằm ở Biển Đông, và vấn đề chủ quyền đối với hai quần đảo này là một trong những vấn đề phức tạp và nhạy cảm trong quan hệ quốc tế, đặc biệt là giữa Việt Nam và Trung Quốc.\n\nViệt Nam khẳng định chủ quyền đối với hai quần đảo này dựa trên các bằng chứng lịch sử và pháp lý. Trong khi đó, Trung Quốc cũng tuyên bố chủ quyền đối với Hoàng Sa và Trường Sa, dẫn đến nhiều tranh chấp và căng thẳng trong khu vực.\n\nVấn đề này không chỉ liên quan đến lịch sử mà còn liên quan đến các yếu tố chính trị, kinh tế và an ninh trong khu vực Biển Đông.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": "Hoàng Sa và Trường Sa là hai quần đảo nằm ở Biển Đông, và vấn đề chủ quyền đối với hai quần đảo này là một trong những vấn đề phức tạp và nhạy cảm trong quan hệ quốc tế, đặc biệt là giữa Việt Nam và Trung Quốc.\n\nViệt Nam khẳng định chủ quyền đối với hai quần đảo này dựa trên các bằng chứng lịch sử và pháp lý. Trong khi đó, Trung Quốc cũng tuyên bố chủ quyền đối với Hoàng Sa và Trường Sa, dẫn đến nhiều tranh chấp và căng thẳng trong khu vực.\n\nVấn đề này không chỉ liên quan đến lịch sử mà còn liên quan đến các yếu tố chính trị, kinh tế và an ninh trong khu vực Biển Đông.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [],
+      "ended_at": "2026-11-10T12:40:59"
+    }
+  ],
+  "interface": "streamlit"
+}

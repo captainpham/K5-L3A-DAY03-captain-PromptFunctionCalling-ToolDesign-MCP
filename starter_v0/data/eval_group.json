@@ -2,6 +2,276 @@
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_handle_without_at",
+      "phase": "B",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Bỏ ký tự @ và giữ đúng số lượng tweet."
+      },
+      "query": "Lấy 3 tweet mới nhất của @elonmusk."
+    },
+    {
+      "id": "G02_top_social_posts",
+      "phase": "B",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "robotics",
+              "search_type": "Top",
+              "limit": 4
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Phân biệt tweet phổ biến với tweet mới nhất."
+      },
+      "query": "Tìm 4 tweet phổ biến nhất về robotics."
+    },
+    {
+      "id": "G03_monthly_web_news",
+      "phase": "B",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Tin web theo tháng phải dùng news và month."
+      },
+      "query": "Tìm tin tức trên web về robotics trong tháng này."
+    },
+    {
+      "id": "G04_missing_article_url",
+      "phase": "B",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Thiếu URL phải hỏi lại, không bịa địa chỉ."
+      },
+      "query": "Tóm tắt bài viết này giúp tôi."
+    },
+    {
+      "id": "G05_deduplicate_sources",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate_sources",
+            "args": {
+              "items": [
+                {
+                  "url": "https://example.com/a"
+                },
+                {
+                  "url": "https://example.com/b"
+                },
+                {
+                  "url": "https://example.com/a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Route tới tool mới và truyền nguyên danh sách đầu vào gồm cả nguồn trùng."
+      },
+      "query": "Loại các nguồn trùng URL trong danh sách sau, giữ bản xuất hiện đầu tiên: [{\"url\": \"https://example.com/a\"}, {\"url\": \"https://example.com/b\"}, {\"url\": \"https://example.com/a\"}]"
+    },
+    {
+      "id": "G06_carry_limit_after_clarification",
+      "phase": "B",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 4
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Giữ số lượng từ lượt trước khi người dùng bổ sung account."
+      },
+      "turns": [
+        {
+          "role": "user",
+          "content": "Lấy 4 tweet mới nhất giúp tôi."
+        },
+        {
+          "role": "user",
+          "content": "Của @elonmusk nhé."
+        }
+      ]
+    },
+    {
+      "id": "G07_carry_timeframe_change_topic",
+      "phase": "B",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Đổi chủ đề nhưng giữ nguồn web, topic news và thời gian month."
+      },
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức web về AI trong tháng này."
+        },
+        {
+          "role": "user",
+          "content": "Đổi chủ đề sang robotics, vẫn giữ khoảng thời gian đó."
+        }
+      ]
+    },
+    {
+      "id": "G08_switch_social_to_web",
+      "phase": "B",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robotics",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Thay đổi nguồn vẫn có hiệu lực khi lượt cuối chỉ nhắc lại chủ đề."
+      },
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tweet về robotics."
+        },
+        {
+          "role": "user",
+          "content": "Bỏ Twitter, chuyển sang tìm tin tức trên web trong tuần này."
+        },
+        {
+          "role": "user",
+          "content": "Giữ chủ đề robotics."
+        }
+      ]
+    },
+    {
+      "id": "G09_correct_limit",
+      "phase": "B",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "elonmusk",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Ưu tiên số lượng mới nhất và giữ account từ lịch sử."
+      },
+      "turns": [
+        {
+          "role": "user",
+          "content": "Lấy 5 tweet mới nhất của @elonmusk."
+        },
+        {
+          "role": "user",
+          "content": "Đổi lại chỉ lấy 2 tweet thôi."
+        }
+      ]
+    },
+    {
+      "id": "G10_switch_latest_to_top",
+      "phase": "B",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "robotics",
+              "search_type": "Top",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Đổi Latest sang Top, giữ query và limit."
+      },
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm 3 tweet mới nhất về robotics."
+        },
+        {
+          "role": "user",
+          "content": "Đổi sang các tweet phổ biến nhất, giữ chủ đề và số lượng."
+        }
+      ]
+    }
+  ]
 }

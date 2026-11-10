@@ -14,6 +14,28 @@
 #   - Make the `send` confirmation boundary explicit.
 #   - Declare your new tool(s) at the end of this file.
 tools:
+  - name: deduplicate_sources
+    description: >
+      Remove duplicate source URLs from items already available. Use when the user
+      requests removal of duplicate sources, preserving the first item and order.
+      Do not search, fetch URLs, or summarize with this tool. Compare URLs exactly
+      after trimming surrounding whitespace; preserve all metadata on kept items.
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          description: Original source list, including duplicates; do not deduplicate before calling.
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+              section: {type: string}
+            required: [url]
+      required: [items]
   # ---------------- Core tools ----------------
   - name: clarify
     description: "Gửi một câu hỏi cho người dùng."
