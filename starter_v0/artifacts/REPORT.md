@@ -3,7 +3,7 @@
 ## Team
 
 - Team: captain
-- Members: Phạm Cát Tân - 2A202603678, Trần Minh Nhật - 2A202603684, Nguyễn Văn Minh - 2A202603672
+- Members: Phạm Cát Tân - 2A202603678, Trần Minh Nhật - 2A202603684, Nguyễn Văn Vinh - 2A202603672
 - Provider/model: OpenRouter / `openai/gpt-4o-mini`
 - UI: Streamlit; chia sẻ demo từ máy cá nhân qua Cloudflare Tunnel.
 
