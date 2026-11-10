@@ -3,5 +3,173 @@
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "CAP_S01_account_count",
+      "phase": "B",
+      "query": "Lấy 3 tweet mới nhất của tài khoản @NASA giúp mình.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{"name": "timeline", "args": {"screenname": "NASA", "limit": 3}}]
+      },
+      "metadata": {"what_it_tests": "Bỏ dấu @ khỏi handle và giữ đúng số lượng bài người dùng yêu cầu."}
+    },
+    {
+      "id": "CAP_S02_weekly_web_news",
+      "phase": "B",
+      "query": "Tìm tin tức trên web về năng lượng tái tạo trong tuần này, lấy 4 kết quả. Dùng đúng cụm từ khóa: năng lượng tái tạo.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{"name": "lookup", "args": {"query": "năng lượng tái tạo", "topic": "news", "timeframe": "week", "max_results": 4}}]
+      },
+      "metadata": {"what_it_tests": "Tách chủ đề tìm kiếm khỏi bộ lọc news/week và giữ số lượng kết quả."}
+    },
+    {
+      "id": "CAP_S03_missing_article_url",
+      "phase": "B",
+      "query": "Đọc và tóm tắt bài viết này giúp mình.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]
+      },
+      "metadata": {"what_it_tests": "Hỏi URL khi người dùng chưa cung cấp bài viết, không tự đoán nguồn."}
+    },
+    {
+      "id": "CAP_S04_capabilities_without_tools",
+      "phase": "B",
+      "query": "Bạn có những công cụ nghiên cứu nào và mỗi công cụ giúp được việc gì? Chỉ giới thiệu, chưa cần tìm thông tin.",
+      "failure_type": "unnecessary_tool",
+      "expect": {"no_tool": true},
+      "metadata": {"what_it_tests": "Giới thiệu khả năng trực tiếp, không gọi công cụ khi chưa có yêu cầu thực hiện nghiên cứu."}
+    },
+    {
+      "id": "CAP_S05_popular_social_posts",
+      "phase": "B",
+      "query": "Tìm 4 bài đăng phổ biến nhất trên Twitter/X về climate tech. Dùng đúng từ khóa climate tech và sắp xếp Top.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{"name": "social_search", "args": {"query": "climate tech", "search_type": "Top", "limit": 4}}]
+      },
+      "metadata": {"what_it_tests": "Chọn tìm kiếm bài đăng theo chủ đề, phân biệt Top với Latest và timeline tài khoản."}
+    },
+    {
+      "id": "CAP_M01_supply_missing_handle",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Lấy 4 tweet mới nhất giúp mình."},
+        {"role": "assistant", "content": "Bạn muốn lấy tweet của tài khoản nào?"},
+        {"role": "user", "content": "Tài khoản @NASA nhé."}
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [{"name": "timeline", "args": {"screenname": "NASA", "limit": 4}}]
+      },
+      "metadata": {"what_it_tests": "Dùng tài khoản vừa được bổ sung và giữ số lượng từ lượt trước, không hỏi lại."}
+    },
+    {
+      "id": "CAP_M02_correct_count",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Lấy 5 tweet mới nhất của tài khoản @ESA."},
+        {"role": "user", "content": "Đổi lại, chỉ lấy 2 tweet thôi."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{"name": "timeline", "args": {"screenname": "ESA", "limit": 2}}]
+      },
+      "metadata": {"what_it_tests": "Ưu tiên số lượng được sửa ở lượt cuối và giữ nguyên tài khoản đã xác định."}
+    },
+    {
+      "id": "CAP_M03_switch_social_to_web",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tìm bài đăng Twitter/X về fusion energy."},
+        {"role": "user", "content": "Không tìm Twitter nữa, chuyển sang tin tức web hôm nay."},
+        {"role": "user", "content": "Giữ đúng từ khóa fusion energy, lấy 3 kết quả."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [{"name": "lookup", "args": {"query": "fusion energy", "topic": "news", "timeframe": "day", "max_results": 3}}]
+      },
+      "metadata": {"what_it_tests": "Tôn trọng việc chuyển nguồn từ Twitter sang web, giữ bộ lọc tin hôm nay ở lượt bổ sung chủ đề."}
+    },
+    {
+      "id": "CAP_M04_change_topic_keep_timeframe",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Tìm tin tức web về solar power trong tháng này, lấy 3 kết quả."},
+        {"role": "user", "content": "Thay chủ đề bằng wind power. Giữ thời gian và số lượng như cũ; dùng đúng từ khóa wind power."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [{"name": "lookup", "args": {"query": "wind power", "topic": "news", "timeframe": "month", "max_results": 3}}]
+      },
+      "metadata": {"what_it_tests": "Chỉ thay chủ đề được sửa, giữ nguồn tin web cùng timeframe và số lượng từ ngữ cảnh."}
+    },
+    {
+      "id": "CAP_M05_supply_missing_url",
+      "phase": "B",
+      "turns": [
+        {"role": "user", "content": "Đọc và tóm tắt bài viết giúp mình."},
+        {"role": "assistant", "content": "Bạn gửi URL bài viết muốn đọc nhé."},
+        {"role": "user", "content": "Đây là link: https://www.python.org/about/"}
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [{"name": "fetch", "args": {"url": "https://www.python.org/about/"}}]
+      },
+      "metadata": {"what_it_tests": "Tiếp tục yêu cầu đọc bài bằng URL vừa được bổ sung, không tìm nguồn khác hoặc hỏi lại."}
+    },
+    {
+      "id": "CAP_S06_deduplicate_collected_items",
+      "phase": "B",
+      "query": "Chỉ loại các item trùng URL trong danh sách sau, giữ item đầu tiên; chưa cần tìm kiếm, đọc link hay định dạng bản tin: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [{
+          "name": "deduplicate",
+          "args": {
+            "items": [
+              {"title": "A", "url": "https://example.com/a"},
+              {"title": "B", "url": "https://example.com/b"},
+              {"title": "A copy", "url": "https://example.com/a"}
+            ]
+          }
+        }]
+      },
+      "metadata": {"what_it_tests": "Chọn tool mới để loại URL trùng từ dữ liệu đã có, truyền toàn bộ input gồm cả bản trùng thay vì tự loại trước hoặc gọi tìm kiếm."}
+    },
+    {
+      "id": "CAP_S07_hackernews_recent",
+      "phase": "B",
+      "query": "Tìm 2 story mới nhất trên Hacker News, dùng đúng từ khóa AI agents. Chỉ tìm trên Hacker News.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "hackernews", "args": {"query": "AI agents", "sort": "date", "limit": 2}}]},
+      "metadata": {"what_it_tests": "Chọn Hacker News thay vì tìm web chung; dùng sort=date và đúng số lượng."}
+    },
+    {
+      "id": "CAP_S08_wikipedia_english",
+      "phase": "B",
+      "query": "Tra Wikipedia tiếng Anh về Python (programming language). Dùng đúng tên đó làm từ khóa, chỉ lấy 1 bài.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "wikipedia", "args": {"query": "Python (programming language)", "lang": "en", "limit": 1}}]},
+      "metadata": {"what_it_tests": "Chọn Wikipedia cho kiến thức nền khi nguồn được chỉ rõ, truyền ngôn ngữ en."}
+    },
+    {
+      "id": "CAP_S09_github_public_repos",
+      "phase": "B",
+      "query": "Tìm 2 repository công khai trên GitHub có nhiều sao nhất với đúng từ khóa llm agent framework.",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "github_repos", "args": {"query": "llm agent framework", "sort": "stars", "limit": 2}}]},
+      "metadata": {"what_it_tests": "Chọn tìm repo GitHub thay vì paper/web chung, sắp xếp theo stars."}
+    },
+    {
+      "id": "CAP_S10_save_local_note",
+      "phase": "B",
+      "query": "Lưu ghi chú markdown trên máy chủ, tiêu đề Captain integration check, nội dung chính xác: Tool integration verification note. Chỉ lưu local, không đăng hay gửi Telegram.",
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "save_note", "args": {"title": "Captain integration check", "content": "Tool integration verification note."}}]},
+      "metadata": {"what_it_tests": "Phân biệt lưu local và gửi ra ngoài; dùng nguyên nội dung có sẵn, không gọi send."}
+    }
+  ]
 }

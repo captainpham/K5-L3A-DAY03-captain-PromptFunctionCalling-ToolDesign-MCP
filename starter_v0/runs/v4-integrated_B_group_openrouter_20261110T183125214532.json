@@ -1,0 +1,1092 @@
+{
+  "run_id": "v4-integrated_B_group_openrouter_20261110T183125214532",
+  "version": "v4-integrated",
+  "artifact_version": "v4-integrated+p71f5408b5109+tba63774d1665",
+  "prompt_hash": "71f5408b5109681ef3970eabe89fc5d19574b11a48a7a1c416b7942cb69b3379",
+  "tools_hash": "ba63774d1665f2d994652ae4fa985eb377be2cc6ee9659541740688b792f0450",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Benicius\\AI20K_5\\lab\\K5-L3A-DAY03-captain-ResearchAgentToolEval\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Benicius\\AI20K_5\\lab\\K5-L3A-DAY03-captain-ResearchAgentToolEval\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-11-10T18:31:25",
+  "summary": {
+    "total_cases": 15,
+    "measured_cases": 15,
+    "provider_error_cases": 0,
+    "passed_cases": 15,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "CAP_S01_account_count",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Bỏ dấu @ khỏi handle và giữ đúng số lượng bài người dùng yêu cầu."
+      },
+      "input": "Lấy 3 tweet mới nhất của tài khoản @NASA giúp mình.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "NASA",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "NASA",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "NASA",
+            "limit": 3
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S02_weekly_web_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Tách chủ đề tìm kiếm khỏi bộ lọc news/week và giữ số lượng kết quả."
+      },
+      "input": "Tìm tin tức trên web về năng lượng tái tạo trong tuần này, lấy 4 kết quả. Dùng đúng cụm từ khóa: năng lượng tái tạo.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "năng lượng tái tạo",
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 4
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "năng lượng tái tạo",
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 4
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "năng lượng tái tạo",
+            "topic": "news",
+            "timeframe": "week",
+            "max_results": 4
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "năng lượng tái tạo",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Nhiều quốc gia nỗ lực chuyển đổi năng lượng tái tạo",
+                "url": "https://thiennhienmoitruong.vn/nhieu-quoc-gia-no-luc-chuyen-doi-nang-luong-tai-tao.html",
+                "source": "thiennhienmoitruong.vn",
+                "summary": "Xu hướng tăng gấp 3 lần công suất năng lượng tái tạo cũng được dự báo tại chu Phi và Đông Nam Á. Tại Đông Nam Á, nhu cầu điện ngày càng tăng do quá trình đô thị hóa và phát triển công nghiệp, trong khi sự phụ thuộc vào nguồn năng lượng nhập khẩu và những biến động địa chính trị đang đặt ra yêu cầu cấp thiết về bảo đảm an ninh năng lượng. Trong bối cảnh đó, phát triển các nguồn năng lượng tái tạo, trong đó có điện mặt trời, đang được xem là một hướng đi nhằm đa dạng hóa nguồn cung, giảm phụ [...] Theo dự báo, công suất năng lượng tái tạo toàn cầu sẽ tăng gần 4.800 GW trong giai đoạn 2026-2031. Các nền kinh tế mới nổi và đang phát triển dự kiến bổ sung khoảng 1.100 GW. Mức tăng công suất tại các khu vực như Đông Nam Á, chu Phi và Trung Đông dự kiến tăng gấp 3 trong giai đoạn này, chủ yếu nhờ điện mặt trời. [...] Theo báo cáo Triển vọng Năng lượng ASEAN lần thứ 9 (AEO9) được công bố vào tháng 10/2026, khu vực đặt mục tiêu đến năm 2030 đạt tỷ trọng năng lượng tái tạo 30% trong tổng nguồn cung năng lượng sơ cấp, và 45% năng lượng tái tạo trong tổng công suất điện lắp đặt.",
+                "score": 0.82117355
+              },
+              {
+                "title": "Cuộc đua năng lượng tái tạo của đại gia Việt, các tỷ phú cũng tham gia",
+                "url": "https://www.vietnam.vn/cuoc-dua-nang-luong-tai-tao-cua-dai-gia-viet-cac-ty-phu-cung-tham-gia",
+                "source": "vietnam.vn",
+                "summary": "Việt Nam đang đứng trước nhu cầu phát triển mạnh các nguồn năng lượng tái tạo, đặc biệt là điện mặt trời và điện gió, nhằm đáp ứng nhu cầu điện ngày càng tăng, bảo đảm an ninh năng lượng và thực hiện cam kết phát thải ròng bằng 0 vào năm 2050. [...] Trong khi đó, T&T Group của doanh nhn Đỗ Quang Hiển đã có quá trình chuẩn bị và đầu tư năng lượng tái tạo từ nhiều năm trước. Theo chia sẻ của ông Hiển, từ khi nhận thấy xu hướng chuyển dịch từ điện than, thủy điện sang năng lượng tái tạo tại các quốc gia phát triển, ông đã chủ động nghiên cứu, tìm kiếm đối tác và chuẩn bị nguồn lực để tham gia lĩnh vực này. [...] Theo Báo cáo triển vọng năng lượng Việt Nam, để đạt đỉnh phát thải CO2 vào năm 2030, ngành điện cần bổ sung 56 GW năng lượng tái tạo, gồm 17 GW điện gió trên bờ và 39 GW điện mặt trời. Nhu cầu này lớn, mở ra dư địa đầu tư đáng kể cho các doanh nghiệp trong lĩnh vực phát triển nguồn điện sạch.\n\nCuộc đua năng lượng tái tạo của đại gia Việt, các tỷ phú cũng tham gia - 1 \n\nDự án Nhà máy điện gió Savan 1 của T&T Group tại Lào (Ảnh: DN).",
+                "score": 0.7811474
+              },
+              {
+                "title": "Hoàn thiện khung pháp lý cho năng lượng tái tạo, tháo gỡ điểm nghẽn truyền tải và phát triển điện gió ngoài khơi",
+                "url": "https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html",
+                "source": "phaply.net.vn",
+                "summary": "Về phát triển năng lượng tái tạo và điện gió ngoài khơi, Bộ trưởng Bộ Công Thương Lê Mạnh Hùng nêu rõ năng lượng tái tạo có ba tính chất rất quan trọng: thứ nhất là không liên tục; thứ hai là chi phí biên cơ bản bằng không; thứ ba là không có dự phòng quay. Do đó, tỷ trọng cũng như tiến độ phát triển năng lượng tái tạo bắt buộc phải đồng bộ với việc hoàn thiện và nng cấp hệ thống lưới thông minh. Chính vì thế, trong dự thảo luật cũng đã đưa ra các cơ chế cụ thể.",
+                "score": 0.76826453
+              },
+              {
+                "title": "Nghị quyết 70-NQ/TW: Lưới điện thông minh trước yêu cầu tích hợp năng lượng tái tạo",
+                "url": "https://happyvietnam.vnanet.vn/nghi-quyet-70-nq-tw-luoi-dien-thong-minh-truoc-yeu-cau-tich-hop-nang-luong-tai-tao/63930.html",
+                "source": "happyvietnam.vnanet.vn",
+                "summary": "Các giải pháp kỹ thuật được triển khai gồm hệ thống lưu trữ năng lượng bằng pin (BESS) để chuyển lượng điện dư thừa vào buổi trưa sang giờ cao điểm chiều tối; cơ chế phản ứng nhu cầu (Demand Response - DR); hệ thống quản lý năng lượng (EMS); nhà máy điện ảo (VPP); tăng cường dự báo năng lượng tái tạo và phát triển lưới điện vi mô (Microgrids) có khả năng tách khỏi lưới điện để cấp điện cho các phụ tải ưu tiên. [...] Khi tích hợp nhiều điện mặt trời và điện gió, hệ thống điện cần có các công nghệ để xử lý những vấn đề phát sinh. Trong tương lai, khi hệ thống điện sử dụng phần lớn năng lượng tái tạo, yêu cầu triển khai các công nghệ này càng trở nên cần thiết, thay vì chỉ dừng ở việc giám sát bằng hệ thống SCADA như trước đy. [...] nhiều nguồn năng lượng tái tạo vào hệ thống, lưới điện đang xuất hiện những vấn đề mới cần được xử lý.",
+                "score": 0.73505294
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S03_missing_article_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Hỏi URL khi người dùng chưa cung cấp bài viết, không tự đoán nguồn."
+      },
+      "input": "Đọc và tóm tắt bài viết này giúp mình.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn vui lòng cung cấp URL của bài viết mà bạn muốn tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S04_capabilities_without_tools",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Giới thiệu khả năng trực tiếp, không gọi công cụ khi chưa có yêu cầu thực hiện nghiên cứu."
+      },
+      "input": "Bạn có những công cụ nghiên cứu nào và mỗi công cụ giúp được việc gì? Chỉ giới thiệu, chưa cần tìm thông tin.",
+      "expect": {
+        "no_tool": true
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Dưới đây là các công cụ nghiên cứu mà tôi có và chức năng của từng công cụ:\n\n1. **lookup**: Tìm kiếm thông tin trên internet, bao gồm cả tin tức và thông tin chung.\n\n2. **social_search**: Tìm kiếm bài đăng trên mạng xã hội theo từ khóa.\n\n3. **timeline**: Lấy các bài đăng gần đây từ một tài khoản mạng xã hội cụ thể.\n\n4. **papers**: Tìm kiếm bài báo khoa học theo từ khóa.\n\n5. **paper_text**: Lấy nội dung văn bản từ một bài báo khoa học cụ thể.\n\n6. **github_repos**: Tìm kiếm các repository mã nguồn công khai trên GitHub theo từ khóa.\n\n7. **hackernews**: Tìm kiếm bài viết trên Hacker News theo từ khóa.\n\n8. **wikipedia**: Tra cứu thông tin từ Wikipedia về một khái niệm, người, hoặc tổ chức.\n\n9. **deduplicate**: Loại bỏ các URL trùng lặp trong danh sách đã cung cấp.\n\n10. **format**: Trình bày dữ liệu đã có thành văn bản theo các định dạng khác nhau.\n\n11. **send**: Gửi một đoạn văn bản đi.\n\n12. **save_note**: Lưu một đoạn văn bản thành file markdown trên máy.\n\n13. **policy**: Tìm kiếm thông tin trong tài liệu nội bộ theo các lĩnh vực chính sách khác nhau.\n\nNếu bạn cần thêm thông tin về một công cụ cụ thể, hãy cho tôi biết!",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "CAP_S05_popular_social_posts",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Chọn tìm kiếm bài đăng theo chủ đề, phân biệt Top với Latest và timeline tài khoản."
+      },
+      "input": "Tìm 4 bài đăng phổ biến nhất trên Twitter/X về climate tech. Dùng đúng từ khóa climate tech và sắp xếp Top.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "climate tech",
+              "search_type": "Top",
+              "limit": 4
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "climate tech",
+              "search_type": "Top",
+              "limit": 4
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "climate tech",
+            "search_type": "Top",
+            "limit": 4
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_M01_supply_missing_handle",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Dùng tài khoản vừa được bổ sung và giữ số lượng từ lượt trước, không hỏi lại."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 4 tweet mới nhất giúp mình."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn lấy tweet của tài khoản nào?"
+        },
+        {
+          "role": "user",
+          "content": "Tài khoản @NASA nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "NASA",
+              "limit": 4
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "NASA",
+              "limit": 4
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "NASA",
+            "limit": 4
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_M02_correct_count",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Ưu tiên số lượng được sửa ở lượt cuối và giữ nguyên tài khoản đã xác định."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lấy 5 tweet mới nhất của tài khoản @ESA."
+        },
+        {
+          "role": "user",
+          "content": "Đổi lại, chỉ lấy 2 tweet thôi."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "ESA",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "ESA",
+              "limit": 2
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "ESA",
+            "limit": 2
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_M03_switch_social_to_web",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Tôn trọng việc chuyển nguồn từ Twitter sang web, giữ bộ lọc tin hôm nay ở lượt bổ sung chủ đề."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm bài đăng Twitter/X về fusion energy."
+        },
+        {
+          "role": "user",
+          "content": "Không tìm Twitter nữa, chuyển sang tin tức web hôm nay."
+        },
+        {
+          "role": "user",
+          "content": "Giữ đúng từ khóa fusion energy, lấy 3 kết quả."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "fusion energy",
+              "topic": "news",
+              "timeframe": "day",
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "fusion energy",
+              "topic": "news",
+              "timeframe": "day",
+              "max_results": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "fusion energy",
+            "topic": "news",
+            "timeframe": "day",
+            "max_results": 3
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "fusion energy",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Fusion Engineering Institute co-hosts Beryllium Safety meeting with General Atomics",
+                "url": "https://today.ucsd.edu/area-story/fusion-engineering-institute-co-hosts-beryllium-safety-meeting-with-general-atomics",
+                "source": "today.ucsd.edu",
+                "summary": "This was also an exciting opportunity to demonstrate the scientific and engineering work our Fusion Engineering Institute is tackling to make commercial fusion energy a reality. From analyzing levitated dipole plasma concepts, to developing new materials able to withstand the high temperatures of fusion reactors, FEI researchers are collaborating across the state, country and world to make this happen. [...] The element beryllium is commonly used for two purposes in the fusion energy process: it can serve as an armor on reactor walls to minimize plasma loss, and is also important in making the  fuel to power the fusion process, through tritium-breeding blankets and the targets in laser fusion schemes. In addition, beryllium is used in manufacturing to make metals harder and more resilient.\n\njavier garay [...] UC San Diego is a world-leader in fundamental and applied fusion research, education and workforce development. The campus is home to the #9 ranked Jacobs School of Engineering, as well as the Fusion Engineering Institute. This institute is building the academic-government-industry collaborations needed to address the engineering challenges that must be solved to make commercially viable fusion power plants a reality.\n\n## Topics covered:\n\n fusion\n\n## Share This:",
+                "score": 0.6701125
+              },
+              {
+                "title": "Physicists Gave Up on This Fusion Technique in the 1980s. Now It’s Working",
+                "url": "https://gizmodo.com/physicists-gave-up-on-this-fusion-technique-in-the-1980s-now-its-working-2000836004",
+                "source": "gizmodo.com",
+                "summary": "Comments  (3)\n\nFusion energy feels like a perpetually elusive goal, but with new ideas and better equipment, scientists have been inching closer to harnessing the power of the stars. But some physicists are testing a different combination: better equipment for an old idea. [...] “So helicon current drive does not constitute a different approach to fusion energy,” Pinsker explained. “[R]ather, it is another technology that can be applied to the tokamak to enhance that approach.”\n\n## A theory ahead of its time [...] In short—as with most fusion research—only time will tell. But the new findings are proof that with time, science does find a way. And that’s a promising idea, I think.\n\nExplore more on these topics\n\nnuclear energy   Nuclear fusion   nuclear physics   renewable energy\n\nShare this story\n\n  Copied!\n\nFollow Us Add Gizmodo on Google\n\n## Sign up for our newsletters\n\nSubscribe and interact with our community, get up to date with our customised Newsletters and much more.\n\n## Related Articles",
+                "score": 0.6664756
+              },
+              {
+                "title": "Inertial Confinement: Physics, Drivers & Fusion — CASRAI",
+                "url": "https://casrai.org/guides/inertial-confinement",
+                "source": "casrai.org",
+                "summary": "On December 5, 2022, LLNL’s National Ignition Facility produced 3.15 MJ of fusion energy from 2.05 MJ of laser energy delivered to the target capsule (Q ≈ 1.54). This marked the first controlled laboratory fusion experiment to achieve scientific breakeven.\n\n## Sources [...] ICF research serves three primary applications:\n\n Stockpile stewardship: Providing experimental physics data on thermonuclear weapons without underground nuclear testing for the National Nuclear Security Administration (NNSA).\n Discovery science: Replicating extreme astrophysical conditions of stellar interiors and planetary cores.\n Inertial fusion energy (IFE): Developing commercial baseload electrical power via repetitive micro-explosions.\n\n## How it works or how it is used in practice [...] Lawrence Livermore National Laboratory (LLNL). \"How NIF Works\" and \"Target Chamber\". Accessed November 9, 2026.  and \n Lawrence Livermore National Laboratory (LLNL). \"Fusion and Ignition\" and \"What Is NIF?\". Accessed November 9, 2026.  and \n U.S. Department of Energy (DOE) Office of Science. \"DOE Explains… Fusion Energy Science\". Accessed November 9, 2026. \n U.S. Department of Energy (DOE) Office of Science. \"DOE Explains… Deuterium-Tritium Fusion Reactor Fuel\". Accessed November 9, 2026.",
+                "score": 0.6625569
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_M04_change_topic_keep_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Chỉ thay chủ đề được sửa, giữ nguồn tin web cùng timeframe và số lượng từ ngữ cảnh."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức web về solar power trong tháng này, lấy 3 kết quả."
+        },
+        {
+          "role": "user",
+          "content": "Thay chủ đề bằng wind power. Giữ thời gian và số lượng như cũ; dùng đúng từ khóa wind power."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "wind power",
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "wind power",
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "wind power",
+            "topic": "news",
+            "timeframe": "month",
+            "max_results": 3
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "wind power",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "Wind turbine orders hit 2.8 GW in Q2 ahead of tax credit deadline: WoodMac | Utility Dive",
+                "url": "https://www.utilitydive.com/news/wind-turbine-orders-hit-28-gw-in-q2-ahead-of-tax-credit-deadline-woodmac/872757",
+                "source": "utilitydive.com",
+                "summary": "Wind power’s forecast for upgrades to existing farms “pulled back 1 GW quarter-on-quarter due to fewer repower equipment orders than expected,” the report said, “but tax credits continue to incentivize fleet renewal alongside opportunities from increasing decommissioning through 2030.” [...] Analysts expect rising PPA prices as clean energy tax credits phase outBy Diana DiGangi • July 2, 2026\n   DOJ moves to revoke offshore wind permits, potentially threatening Senate permitting billBy Diana DiGangi • Oct. 22, 2026\n   Land-based wind power pipeline shrinks as price gap with solar widensBy Diana DiGangi • Sept. 3, 2026\n\n   Image 25Add us on Google\n   Image 26Share) [...] Overall, “the U.S. wind industry remains on course to add 39 GW of onshore new-build capacity by 2030,” the report said. “More than half of the project pipeline from 2026 to 2028 is already operating or under construction, limiting near-term risk.”\n\nHowever, Wood Mackenzie noted that offshore wind development was limited to 5 GW delivering within the next two years “as unfavorable policy limits new developments.”",
+                "score": 0.41591915
+              },
+              {
+                "title": "Trump goes after an offshore wind farm that’s already… | Canary Media",
+                "url": "https://www.canarymedia.com/articles/offshore-wind/trump-reevaluate-permit-revolution-wind-orsted",
+                "source": "canarymedia.com",
+                "summary": "At full operation, Revolution Wind will generate enough clean electricity to power over 350,000 homes and is expected to play an important role in reducing the region’s grid stress during heat waves and winter cold spells.",
+                "score": 0.32280394
+              },
+              {
+                "title": "Trump’s fresh campaign against wind power puts permitting deal in doubt",
+                "url": "https://www.ft.com/content/8cdadf5d-5859-422d-982a-fab0e9f2a619?syn-25a6b1a6=1",
+                "source": "ft.com",
+                "summary": "# > Trump’s fresh campaign against wind power puts permitting deal in doubt\n\nThis is one moment in an ongoing story on Renewable energy\n\nContinue reading with an FT subscription\n\n## See why 1.2 million+ global leaders rely on the FT\n\n   ### Authority. Integrity. Accuracy.\n\nA global network of over 700 journalists in 40 countries, committed to the highest standards of reporting. \n   ### Go beyond the headlines",
+                "score": 0.31000513
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_M05_supply_missing_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Tiếp tục yêu cầu đọc bài bằng URL vừa được bổ sung, không tìm nguồn khác hoặc hỏi lại."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đọc và tóm tắt bài viết giúp mình."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn gửi URL bài viết muốn đọc nhé."
+        },
+        {
+          "role": "user",
+          "content": "Đây là link: https://www.python.org/about/"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.python.org/about/"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.python.org/about/"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://www.python.org/about/"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://www.python.org/about/",
+            "items": [
+              {
+                "title": "About Python™ | Python.org",
+                "url": "https://www.python.org/about/",
+                "source": "python.org",
+                "summary": "**Notice:** This page displays a fallback because interactive scripts did not run. Possible causes include disabled JavaScript or failure to load scripts or stylesheets.\n\n## Getting Started\n\nPython can be easy to pick up whether you're a first time programmer or you're experienced with other languages. The following pages are a useful first step to get on your way writing programs with Python!\n\n- [Beginner's Guide, Programmers](https://wiki.python.org/moin/BeginnersGuide/Programmers)\n- [Beginner's Guide, Non-Programmers](https://wiki.python.org/moin/BeginnersGuide/NonProgrammers)\n- [Beginner's Guide, Download & Installation](https://wiki.python.org/moin/BeginnersGuide/Download)\n- [Code sample and snippets for Beginners](https://wiki.python.org/moin/BeginnersGuide/Examples)\n\n## Friendly & Easy to Learn\n\nThe community hosts conferences and meetups, collaborates on code, and much more. Python's documentation will help you along the way, and the mailing lists will keep you in touch.\n\n- [Conferences and Workshops](https://www.python.org/community/workshops/)\n- [Python Documentation](http://docs.python.org/)\n- [Mailing Lists](https://www.python.org/community/lists) and [IRC channels](https://www.python.org/community/irc/)\n\n## Applications\n\nThe [Python Package Index (PyPI)](https://pypi.python.org/) hosts thousands of third-party modules for Python. Both Python's standard library and the community-contributed modules allow for endless possibilities.\n\n- [Web and Internet Development](https://www.python.org/about/apps/#web-and-internet-development)\n- [Database Access](https://www.python.org/about/apps/#database-access)\n- [Desktop GUIs](https://www.python.org/about/apps/#desktop-guis)\n- [Scientific & Numeric](https://www.python.org/about/apps/#scientific-and-numeric)\n- [Education](https://www.python.org/about/apps/#education)\n- [Network Programming](https://www.python.org/about/apps/#network-programming)\n- [Software & Game Development](https://www.python.org/about/apps/#software-development)\n\n## Open-source\n\nPython is developed under an OSI-approved open source license, making it freely usable and distributable, even for commercial use. Python's license is administered by the [Python Software Foundation](https://www.python.org/psf).\n\n- [Learn more about the license](https://docs.python.org/license.html)\n- [Python license on OSI](https://opensource.org/license/pythonsoftfoundation-php/)\n- [Learn more about the Foundation](https://www.python.org/psf-landing/)\n\nCan’t find what you’re looking for? [Try our comprehensive Help section](https://www.python.org/about/help/)\n\n## Latest News\n\n[More news](https://www.python.org/blogs/)\n\n## Upcoming Events\n\n[More](https://www.python.org/events/calendars/ \"More Events\")\n\n## >>> [Python Software Foundation](https://www.python.org/psf/)\n\nThe mission of the Python Software Foundation is to promote, protect, and advance the Python programming language, and to support and facilitate the growth of a diverse and international community of Python programmers. [Learn more](https://www.python.org/psf/)\n\n[Become a Member](https://www.python.org/psf/membership/) [Donate to the PSF](https://www.python.org/psf/donations/)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S06_deduplicate_collected_items",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Chọn tool mới để loại URL trùng từ dữ liệu đã có, truyền toàn bộ input gồm cả bản trùng thay vì tự loại trước hoặc gọi tìm kiếm."
+      },
+      "input": "Chỉ loại các item trùng URL trong danh sách sau, giữ item đầu tiên; chưa cần tìm kiếm, đọc link hay định dạng bản tin: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {
+                  "title": "A",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "B",
+                  "url": "https://example.com/b"
+                },
+                {
+                  "title": "A copy",
+                  "url": "https://example.com/a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {
+                  "title": "A",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "B",
+                  "url": "https://example.com/b"
+                },
+                {
+                  "title": "A copy",
+                  "url": "https://example.com/a"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "deduplicate",
+          "args": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              },
+              {
+                "title": "A copy",
+                "url": "https://example.com/a"
+              }
+            ]
+          },
+          "result": {
+            "tool": "deduplicate",
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              }
+            ],
+            "item_count": 2,
+            "removed_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S07_hackernews_recent",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Chọn Hacker News thay vì tìm web chung; dùng sort=date và đúng số lượng."
+      },
+      "input": "Tìm 2 story mới nhất trên Hacker News, dùng đúng từ khóa AI agents. Chỉ tìm trên Hacker News.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "AI agents",
+              "sort": "date",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "AI agents",
+              "sort": "date",
+              "limit": 2
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "hackernews",
+          "args": {
+            "query": "AI agents",
+            "sort": "date",
+            "limit": 2
+          },
+          "result": {
+            "tool": "search_hackernews",
+            "query": "AI agents",
+            "sort": "date",
+            "items": [
+              {
+                "title": "I Access Auditor – see and revoke what your AI coding agents can access",
+                "url": "https://github.com/dirmedmr-alt/ai-access-auditor",
+                "source": "github.com",
+                "summary": "1 points, 0 comments, by dirmed",
+                "discussion_url": "https://news.ycombinator.com/item?id=50437570",
+                "date": "2026-11-10T08:31:13Z"
+              },
+              {
+                "title": "Antelog – stops AI coding agents from running dangerous commands",
+                "url": "https://antelog.dev/",
+                "source": "antelog.dev",
+                "summary": "1 points, 0 comments, by Yashsarwaiya",
+                "discussion_url": "https://news.ycombinator.com/item?id=50437368",
+                "date": "2026-11-10T07:57:26Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S08_wikipedia_english",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Chọn Wikipedia cho kiến thức nền khi nguồn được chỉ rõ, truyền ngôn ngữ en."
+      },
+      "input": "Tra Wikipedia tiếng Anh về Python (programming language). Dùng đúng tên đó làm từ khóa, chỉ lấy 1 bài.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Python (programming language)",
+              "lang": "en",
+              "limit": 1
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Python (programming language)",
+              "lang": "en",
+              "limit": 1
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "query": "Python (programming language)",
+            "lang": "en",
+            "limit": 1
+          },
+          "result": {
+            "tool": "wikipedia_summary",
+            "query": "Python (programming language)",
+            "lang": "en",
+            "items": [
+              {
+                "title": "Python (programming language)",
+                "url": "https://en.wikipedia.org/wiki/Python_(programming_language)",
+                "source": "en.wikipedia.org",
+                "summary": "Python is a high-level, general-purpose programming language that emphasizes code readability, simplicity, and ease-of-writing with the use of significant indentation, an extensive (\"batteries-included\") standard library, and garbage collection. Python supports multiple programming paradigms but with an emphasis on object-oriented programming and dynamic typing.\nGuido van Rossum began working on Python in the late 1980s as a successor to the ABC programming language. Python 3.0, released in 2008, was a major revision and not completely backward-compatible with earlier versions. Beginning with Python 3.5, capabilities and keywords for typing were added to the language, allowing optional static typing. As of 2026, the Python Software Foundation supports Python 3.15.2, 3.14.10, 3.13.18, 3.12.16 and 3.11.18 that all were \"expedited security releases\" in October 2026, following the project's annual release cycle and five-year support policy. Python 3.15 the latest stable release defaults to UTF-8, unlike previous versions. Earlier versions in the 3.x series have reached end-of-life and no longer receive security updates. \nPython is widely taught as an introductory programming language."
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S09_github_public_repos",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Chọn tìm repo GitHub thay vì paper/web chung, sắp xếp theo stars."
+      },
+      "input": "Tìm 2 repository công khai trên GitHub có nhiều sao nhất với đúng từ khóa llm agent framework.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_repos",
+            "args": {
+              "query": "llm agent framework",
+              "sort": "stars",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_repos",
+            "args": {
+              "query": "llm agent framework",
+              "sort": "stars",
+              "limit": 2
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_repos",
+          "args": {
+            "query": "llm agent framework",
+            "sort": "stars",
+            "limit": 2
+          },
+          "result": {
+            "tool": "search_github_repos",
+            "query": "llm agent framework",
+            "sort": "stars",
+            "items": [
+              {
+                "title": "langchain-ai/langchain",
+                "url": "https://github.com/langchain-ai/langchain",
+                "source": "github.com",
+                "summary": "The agent engineering platform.",
+                "stars": 149300,
+                "language": "Python",
+                "date": "2026-11-10T11:00:31Z"
+              },
+              {
+                "title": "TauricResearch/TradingAgents",
+                "url": "https://github.com/TauricResearch/TradingAgents",
+                "source": "github.com",
+                "summary": "TradingAgents: Multi-Agents LLM Financial Trading Framework",
+                "stars": 121781,
+                "language": "Python",
+                "date": "2026-11-10T11:29:32Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "CAP_S10_save_local_note",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Phân biệt lưu local và gửi ra ngoài; dùng nguyên nội dung có sẵn, không gọi send."
+      },
+      "input": "Lưu ghi chú markdown trên máy chủ, tiêu đề Captain integration check, nội dung chính xác: Tool integration verification note. Chỉ lưu local, không đăng hay gửi Telegram.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_note",
+            "args": {
+              "title": "Captain integration check",
+              "content": "Tool integration verification note."
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "save_note",
+            "args": {
+              "content": "Tool integration verification note.",
+              "title": "Captain integration check"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "save_note",
+          "args": {
+            "content": "Tool integration verification note.",
+            "title": "Captain integration check"
+          },
+          "result": {
+            "tool": "save_note",
+            "status": "saved",
+            "path": "C:\\Users\\Benicius\\AI20K_5\\lab\\K5-L3A-DAY03-captain-ResearchAgentToolEval\\starter_v0\\notes\\20261110T183125213529_captain-integration-check.md",
+            "chars": 65
+          }
+        }
+      ]
+    }
+  ]
+}

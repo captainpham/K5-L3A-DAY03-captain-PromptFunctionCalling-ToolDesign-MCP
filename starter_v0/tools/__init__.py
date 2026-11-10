@@ -8,6 +8,11 @@ import yaml
 # Folder names are intentionally vague to match the tool names students see.
 # The imported function names are the underlying implementations (unchanged).
 from .clarify.tool import ask_user
+from .deduplicate.tool import deduplicate_items
+from .hackernews.tool import search_hackernews
+from .wikipedia.tool import wikipedia_summary
+from .github_repos.tool import search_github_repos
+from .save_note.tool import save_note
 from .papers.tool import arxiv_search
 from .paper_text.tool import get_arxiv_paper_text
 from .timeline.tool import get_user_tweets
@@ -35,6 +40,11 @@ TOOL_FUNCTIONS = {
     "policy": search_company_policy,
     "papers": arxiv_search,
     "paper_text": get_arxiv_paper_text,
+    "deduplicate": deduplicate_items,
+    "hackernews": search_hackernews,
+    "wikipedia": wikipedia_summary,
+    "github_repos": search_github_repos,
+    "save_note": save_note,
     # TODO(student): register your new tool here, e.g. "my_tool": my_tool_function,
     # then declare it in artifacts/tools.yaml and run `pytest tests/test_tool_contract.py`.
 }

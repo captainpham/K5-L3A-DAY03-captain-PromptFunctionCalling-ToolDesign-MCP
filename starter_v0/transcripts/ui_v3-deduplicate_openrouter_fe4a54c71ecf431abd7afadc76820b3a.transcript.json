@@ -1,0 +1,602 @@
+{
+  "transcript_id": "ui_v3-deduplicate_openrouter_fe4a54c71ecf431abd7afadc76820b3a",
+  "version": "v3-deduplicate",
+  "artifact_version": "v3-deduplicate+p62ad0e91d963+tba63774d1665",
+  "prompt_hash": "62ad0e91d9637cd15ff5279621167b9eb484dd267733dae4e181f31d8773a86c",
+  "tools_hash": "ba63774d1665f2d994652ae4fa985eb377be2cc6ee9659541740688b792f0450",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Benicius\\AI20K_5\\lab\\K5-L3A-DAY03-captain-ResearchAgentToolEval\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Benicius\\AI20K_5\\lab\\K5-L3A-DAY03-captain-ResearchAgentToolEval\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-10T18:40:59",
+  "updated_at": "2026-11-10T18:41:09",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T18:40:59",
+      "user": "nghiên cứu về paper https://github.com/junjianli106/ConVL cho tôi nha",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "fetch",
+              "args": {
+                "url": "https://github.com/junjianli106/ConVL"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "fetch",
+              "args": {
+                "url": "https://github.com/junjianli106/ConVL"
+              },
+              "result": {
+                "tool": "read_url",
+                "url": "https://github.com/junjianli106/ConVL",
+                "items": [
+                  {
+                    "title": "GitHub - junjianli106/ConVL: MICCAI2026 | ConVL: Interpretable Concept-Guided Vision-Language MIL for Survival Analysis in Whole Slide Images · GitHub",
+                    "url": "https://github.com/junjianli106/ConVL",
+                    "source": "github.com",
+                    "summary": "[Skip to content](https://github.com/junjianli106/ConVL#start-of-content)\n\nYou signed in with another tab or window. [Reload](https://github.com/junjianli106/ConVL) to refresh your session.You signed out in another tab or window. [Reload](https://github.com/junjianli106/ConVL) to refresh your session.You switched accounts on another tab or window. [Reload](https://github.com/junjianli106/ConVL) to refresh your session.Dismiss alert\n\n{{ message }}\n\nmain\n\n[**1** Branch](https://github.com/junjianli106/ConVL/branches) [**0** Tags](https://github.com/junjianli106/ConVL/tags)\n\n[Go to Branches page](https://github.com/junjianli106/ConVL/branches)[Go to Tags page](https://github.com/junjianli106/ConVL/tags)\n\nGo to file\n\nCode\n\nOpen more actions menu\n\n## Latest commit\n\n[![junjianli106](https://avatars.githubusercontent.com/u/38580237?v=4&size=40)](https://github.com/junjianli106)[junjianli106](https://github.com/junjianli106/ConVL/commits?author=junjianli106)\n\n[first update](https://github.com/junjianli106/ConVL/commit/f1017a7ea0f51ff8d436b1334f937b85aa86c46b)\n\n5 months agoJul 3, 2026\n\n[f1017a7](https://github.com/junjianli106/ConVL/commit/f1017a7ea0f51ff8d436b1334f937b85aa86c46b) · 5 months agoJul 3, 2026\n\n## History\n\n[4 Commits](https://github.com/junjianli106/ConVL/commits/main/)\n\nOpen commit details\n\n[View commit history for this file.](https://github.com/junjianli106/ConVL/commits/main/) 4 Commits\n\n## Folders and files\n\n| Name | Name | Last commit message | Last commit date |\n| --- | --- | --- | --- |\n| [configs/prog/BLCA/ConVL](https://github.com/junjianli106/ConVL/tree/main/configs/prog/BLCA/ConVL \"This path skips through empty directories\") | [configs/prog/BLCA/ConVL](https://github.com/junjianli106/ConVL/tree/main/configs/prog/BLCA/ConVL \"This path skips through empty directories\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [datasets](https://github.com/junjianli106/ConVL/tree/main/datasets \"datasets\") | [datasets](https://github.com/junjianli106/ConVL/tree/main/datasets \"datasets\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [external](https://github.com/junjianli106/ConVL/tree/main/external \"external\") | [external](https://github.com/junjianli106/ConVL/tree/main/external \"external\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [losses](https://github.com/junjianli106/ConVL/tree/main/losses \"losses\") | [losses](https://github.com/junjianli106/ConVL/tree/main/losses \"losses\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [models](https://github.com/junjianli106/ConVL/tree/main/models \"models\") | [models](https://github.com/junjianli106/ConVL/tree/main/models \"models\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [optimizers](https://github.com/junjianli106/ConVL/tree/main/optimizers \"optimizers\") | [optimizers](https://github.com/junjianli106/ConVL/tree/main/optimizers \"optimizers\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [splits/4foldcv/tcga\\_blca](https://github.com/junjianli106/ConVL/tree/main/splits/4foldcv/tcga_blca \"This path skips through empty directories\") | [splits/4foldcv/tcga\\_blca](https://github.com/junjianli106/ConVL/tree/main/splits/4foldcv/tcga_blca \"This path skips through empty directories\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [utils](https://github.com/junjianli106/ConVL"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dự án GitHub \"ConVL\" được phát triển bởi người dùng junjianli106, tập trung vào việc phân tích sống sót trong hình ảnh toàn bộ bằng cách sử dụng phương pháp Vision-Language MIL (Multiple Instance Learning) có thể giải thích. Dưới đây là một số thông tin chính từ trang GitHub:\n\n- **Tiêu đề**: [ConVL: Interpretable Concept-Guided Vision-Language MIL for Survival Analysis in Whole Slide Images](https://github.com/junjianli106/ConVL)\n- **Mô tả**: Dự án này nhằm mục đích phát triển một phương pháp có thể giải thích cho việc phân tích sống sót trong hình ảnh toàn bộ, sử dụng các khái niệm hướng dẫn từ ngữ cảnh.\n- **Cấu trúc thư mục**: Dự án bao gồm các thư mục như `configs`, `datasets`, `external`, `losses`, `models`, `optimizers`, và `utils`, cho thấy rằng nó có cấu trúc rõ ràng và tổ chức tốt cho việc phát triển và thử nghiệm.\n\nBạn có thể xem thêm chi tiết và mã nguồn tại [đây](https://github.com/junjianli106/ConVL). Nếu bạn cần thông tin cụ thể hơn hoặc có câu hỏi nào khác, hãy cho tôi biết!",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://github.com/junjianli106/ConVL"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://github.com/junjianli106/ConVL",
+            "items": [
+              {
+                "title": "GitHub - junjianli106/ConVL: MICCAI2026 | ConVL: Interpretable Concept-Guided Vision-Language MIL for Survival Analysis in Whole Slide Images · GitHub",
+                "url": "https://github.com/junjianli106/ConVL",
+                "source": "github.com",
+                "summary": "[Skip to content](https://github.com/junjianli106/ConVL#start-of-content)\n\nYou signed in with another tab or window. [Reload](https://github.com/junjianli106/ConVL) to refresh your session.You signed out in another tab or window. [Reload](https://github.com/junjianli106/ConVL) to refresh your session.You switched accounts on another tab or window. [Reload](https://github.com/junjianli106/ConVL) to refresh your session.Dismiss alert\n\n{{ message }}\n\nmain\n\n[**1** Branch](https://github.com/junjianli106/ConVL/branches) [**0** Tags](https://github.com/junjianli106/ConVL/tags)\n\n[Go to Branches page](https://github.com/junjianli106/ConVL/branches)[Go to Tags page](https://github.com/junjianli106/ConVL/tags)\n\nGo to file\n\nCode\n\nOpen more actions menu\n\n## Latest commit\n\n[![junjianli106](https://avatars.githubusercontent.com/u/38580237?v=4&size=40)](https://github.com/junjianli106)[junjianli106](https://github.com/junjianli106/ConVL/commits?author=junjianli106)\n\n[first update](https://github.com/junjianli106/ConVL/commit/f1017a7ea0f51ff8d436b1334f937b85aa86c46b)\n\n5 months agoJul 3, 2026\n\n[f1017a7](https://github.com/junjianli106/ConVL/commit/f1017a7ea0f51ff8d436b1334f937b85aa86c46b) · 5 months agoJul 3, 2026\n\n## History\n\n[4 Commits](https://github.com/junjianli106/ConVL/commits/main/)\n\nOpen commit details\n\n[View commit history for this file.](https://github.com/junjianli106/ConVL/commits/main/) 4 Commits\n\n## Folders and files\n\n| Name | Name | Last commit message | Last commit date |\n| --- | --- | --- | --- |\n| [configs/prog/BLCA/ConVL](https://github.com/junjianli106/ConVL/tree/main/configs/prog/BLCA/ConVL \"This path skips through empty directories\") | [configs/prog/BLCA/ConVL](https://github.com/junjianli106/ConVL/tree/main/configs/prog/BLCA/ConVL \"This path skips through empty directories\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [datasets](https://github.com/junjianli106/ConVL/tree/main/datasets \"datasets\") | [datasets](https://github.com/junjianli106/ConVL/tree/main/datasets \"datasets\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [external](https://github.com/junjianli106/ConVL/tree/main/external \"external\") | [external](https://github.com/junjianli106/ConVL/tree/main/external \"external\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [losses](https://github.com/junjianli106/ConVL/tree/main/losses \"losses\") | [losses](https://github.com/junjianli106/ConVL/tree/main/losses \"losses\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [models](https://github.com/junjianli106/ConVL/tree/main/models \"models\") | [models](https://github.com/junjianli106/ConVL/tree/main/models \"models\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [optimizers](https://github.com/junjianli106/ConVL/tree/main/optimizers \"optimizers\") | [optimizers](https://github.com/junjianli106/ConVL/tree/main/optimizers \"optimizers\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [splits/4foldcv/tcga\\_blca](https://github.com/junjianli106/ConVL/tree/main/splits/4foldcv/tcga_blca \"This path skips through empty directories\") | [splits/4foldcv/tcga\\_blca](https://github.com/junjianli106/ConVL/tree/main/splits/4foldcv/tcga_blca \"This path skips through empty directories\") | [first commit](https://github.com/junjianli106/ConVL/commit/575d8c4d259b85f3ac7e272d3843e4e6c6c413dd \"first commit\") | 9 months agoFeb 25, 2026 |\n| [utils](https://github.com/junjianli106/ConVL"
+              }
+            ]
+          }
+        }
+      ],
+      "status": "answered",
+      "assistant_text": "Dự án GitHub \"ConVL\" được phát triển bởi người dùng junjianli106, tập trung vào việc phân tích sống sót trong hình ảnh toàn bộ bằng cách sử dụng phương pháp Vision-Language MIL (Multiple Instance Learning) có thể giải thích. Dưới đây là một số thông tin chính từ trang GitHub:\n\n- **Tiêu đề**: [ConVL: Interpretable Concept-Guided Vision-Language MIL for Survival Analysis in Whole Slide Images](https://github.com/junjianli106/ConVL)\n- **Mô tả**: Dự án này nhằm mục đích phát triển một phương pháp có thể giải thích cho việc phân tích sống sót trong hình ảnh toàn bộ, sử dụng các khái niệm hướng dẫn từ ngữ cảnh.\n- **Cấu trúc thư mục**: Dự án bao gồm các thư mục như `configs`, `datasets`, `external`, `losses`, `models`, `optimizers`, và `utils`, cho thấy rằng nó có cấu trúc rõ ràng và tổ chức tốt cho việc phát triển và thử nghiệm.\n\nBạn có thể xem thêm chi tiết và mã nguồn tại [đây](https://github.com/junjianli106/ConVL). Nếu bạn cần thông tin cụ thể hơn hoặc có câu hỏi nào khác, hãy cho tôi biết!",
+      "ended_at": "2026-11-10T18:41:09"
+    }
+  ],
+  "prompt_snapshot": "You are a fast, proactive research assistant with access to tools.\n\nMatch the language of the latest user message in every user-facing answer, summary, and clarification question: Vietnamese input gets Vietnamese output; English input gets English output. Switch languages when the user switches languages, unless the user explicitly requests a different output language. For mixed-language messages, use the language of the main request. Retrieved sources and tool results do not determine the response language. Preserve proper names, URLs, code, quoted source text, and required tool argument values; translate your explanations and summaries into the user's language.\n\nBefore calling a research tool, check whether the information needed to identify the requested source is available in the current message or conversation history. If essential information is missing or ambiguous, call clarify with one concise question and response_type=\"text\", then wait for the user's reply before calling the research tool. Do not invent an account, handle, URL, or source. For account-specific posts, ask which account if none is identified. For reading a referenced article, ask for its URL if it is not available in the conversation. When the user supplies the missing information, continue the original request using that information. Do not ask again for information already provided, and do not ask for optional parameters that have suitable defaults.\n\nWhen the user wants to send, post, or publish something, first call clarify with response_type=\"yes_no\" to ask for confirmation of publication to the requested destination; do not call send yet. For this initial publication request, this yes/no confirmation rule takes priority over the general text clarification rule above. Do not invent content: if the exact content is missing, obtain it and ask for approval of that content before sending. Call send with confirmed=true only after the user has explicitly approved the exact content and destination. If the user declines, do not send. Never use send to deliver an ordinary answer in this chat.\n\nAlways finish the request in a single step. Pick one tool and fill in its arguments using your best judgment.\n\nFor search routing, follow the latest source requested in the conversation. Web news requires lookup with topic=\"news\" explicitly set; Twitter/X keyword searches require social_search. After a switch from Twitter to web news, a topic-only follow-up still uses lookup. Preserve the current timeframe unless the user changes it. Keep query focused on the requested subject, with news and time restrictions in their dedicated parameters. Apply this rule to each search source requested, including requests that ask for both web news and tweets; in that case call both tools rather than following the one-tool preference above.\n",
+  "tools_snapshot": [
+    {
+      "type": "function",
+      "function": {
+        "name": "deduplicate",
+        "description": "Loại bài trùng URL trong danh sách item đã có, giữ item đầu tiên và thứ tự. Dùng khi người dùng muốn gộp nguồn hoặc bỏ link trùng trước khi làm bản tin. Không dùng để tìm kiếm, đọc URL hoặc so sánh nội dung bài. Chỉ so URL sau khi bỏ khoảng trắng hai đầu; item thiếu URL vẫn được giữ riêng và có warnings kèm vị trí item trong input.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "description": "Danh sách item đã được cung cấp hoặc thu thập; không tự tạo item.",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "section": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "required": [
+            "items"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "clarify",
+        "description": "Gửi một câu hỏi cho người dùng.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "question": {
+              "type": "string",
+              "default": "",
+              "description": "Câu hỏi"
+            },
+            "response_type": {
+              "type": "string",
+              "enum": [
+                "text",
+                "yes_no",
+                "choice"
+              ],
+              "default": "text",
+              "description": "Kiểu trả lời"
+            },
+            "options": {
+              "type": "array",
+              "default": [],
+              "items": {
+                "type": "string"
+              },
+              "description": "Các lựa chọn"
+            }
+          },
+          "required": [
+            "question"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "timeline",
+        "description": "Lấy các bài đăng gần đây.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "screenname": {
+              "type": "string",
+              "default": "",
+              "description": "Tên tài khoản"
+            },
+            "limit": {
+              "type": "integer",
+              "default": 5,
+              "description": "Số lượng"
+            }
+          },
+          "required": [
+            "screenname"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "social_search",
+        "description": "Tìm trên mạng xã hội.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "default": "",
+              "description": "Từ khóa"
+            },
+            "search_type": {
+              "type": "string",
+              "enum": [
+                "Latest",
+                "Top"
+              ],
+              "default": "Latest",
+              "description": "Cách sắp xếp"
+            },
+            "limit": {
+              "type": "integer",
+              "default": 5,
+              "description": "Số lượng"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "lookup",
+        "description": "Tra cứu thông tin trên internet.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "default": "",
+              "description": "Truy vấn"
+            },
+            "topic": {
+              "type": "string",
+              "enum": [
+                "general",
+                "news"
+              ],
+              "default": "general",
+              "description": "Phân loại"
+            },
+            "timeframe": {
+              "type": "string",
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "year"
+              ],
+              "default": "week",
+              "description": "Khoảng thời gian"
+            },
+            "max_results": {
+              "type": "integer",
+              "default": 5,
+              "description": "Số kết quả"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "fetch",
+        "description": "Lấy nội dung từ một địa chỉ.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "default": "",
+              "description": "Địa chỉ"
+            }
+          },
+          "required": [
+            "url"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "format",
+        "description": "Trình bày dữ liệu đã có thành văn bản.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "items": {
+              "type": "array",
+              "default": [],
+              "description": "Danh sách item",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "source": {
+                    "type": "string"
+                  },
+                  "summary": {
+                    "type": "string"
+                  },
+                  "section": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "template": {
+              "type": "string",
+              "enum": [
+                "brief",
+                "sections",
+                "bullets",
+                "thread",
+                "daily_ai_vn"
+              ],
+              "default": "sections",
+              "description": "Khuôn"
+            },
+            "headline": {
+              "type": "string",
+              "default": "",
+              "description": "Tiêu đề"
+            }
+          },
+          "required": [
+            "items",
+            "template"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "send",
+        "description": "Gửi một đoạn văn bản đi.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string",
+              "default": "",
+              "description": "Nội dung"
+            },
+            "confirmed": {
+              "type": "boolean",
+              "default": false,
+              "description": "Cờ xác nhận"
+            }
+          },
+          "required": [
+            "text"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "policy",
+        "description": "Tìm trong tài liệu nội bộ.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "default": "",
+              "description": "Truy vấn"
+            },
+            "policy_area": {
+              "type": "string",
+              "enum": [
+                "all",
+                "ai_research",
+                "source_citation",
+                "data_privacy",
+                "external_publishing",
+                "tool_usage"
+              ],
+              "default": "all",
+              "description": "Nhóm"
+            },
+            "top_k": {
+              "type": "integer",
+              "default": 3,
+              "description": "Số mục"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "papers",
+        "description": "Tìm bài báo khoa học.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "default": "",
+              "description": "Từ khóa"
+            },
+            "max_results": {
+              "type": "integer",
+              "default": 5,
+              "description": "Số lượng"
+            },
+            "sort_by": {
+              "type": "string",
+              "enum": [
+                "relevance",
+                "lastUpdatedDate",
+                "submittedDate"
+              ],
+              "default": "relevance",
+              "description": "Sắp xếp"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "paper_text",
+        "description": "Lấy nội dung text của một bài báo.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "arxiv_url": {
+              "type": "string",
+              "default": "",
+              "description": "ID hoặc địa chỉ"
+            },
+            "max_pages": {
+              "type": "integer",
+              "default": 5,
+              "description": "Số trang"
+            },
+            "max_chars": {
+              "type": "integer",
+              "default": 8000,
+              "description": "Số ký tự"
+            }
+          },
+          "required": [
+            "arxiv_url"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "hackernews",
+        "description": "Tìm bài (story) trên Hacker News theo từ khóa. CHỈ dùng khi người dùng nhắc rõ Hacker News / HN. Không dùng cho tin tức web chung (dùng lookup) hay bài đăng Twitter/X (dùng social_search).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "default": "",
+              "description": "Từ khóa chủ đề, ví dụ 'AI agents'. Không kèm chữ 'Hacker News'."
+            },
+            "sort": {
+              "type": "string",
+              "enum": [
+                "relevance",
+                "date"
+              ],
+              "default": "relevance",
+              "description": "relevance = khớp nhất / nổi bật (mặc định); date = mới nhất trước, dùng khi người dùng nói 'mới nhất', 'gần đây'."
+            },
+            "limit": {
+              "type": "integer",
+              "default": 5,
+              "description": "Số bài cần lấy (1-20). Lấy đúng con số người dùng nêu."
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "wikipedia",
+        "description": "Tra định nghĩa / kiến thức nền về một khái niệm, người, tổ chức trên Wikipedia. CHỈ dùng khi người dùng nhắc rõ Wikipedia / wiki. Không dùng cho tin tức mới hay sự kiện đang diễn ra (dùng lookup).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "default": "",
+              "description": "Tên khái niệm cần tra, ví dụ 'Transformer (deep learning)'."
+            },
+            "lang": {
+              "type": "string",
+              "enum": [
+                "vi",
+                "en"
+              ],
+              "default": "vi",
+              "description": "Ngôn ngữ Wikipedia: vi (mặc định) hoặc en khi người dùng yêu cầu bản tiếng Anh."
+            },
+            "limit": {
+              "type": "integer",
+              "default": 1,
+              "description": "Số bài viết trả về (1-5)."
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "github_repos",
+        "description": "Tìm repository mã nguồn công khai trên GitHub theo từ khóa. CHỈ dùng khi người dùng muốn tìm repo / thư viện / project mã nguồn trên GitHub. Không dùng để đọc một URL cụ thể (dùng fetch) hay tìm bài báo khoa học (dùng papers).",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "default": "",
+              "description": "Từ khóa tìm repo, ví dụ 'llm agent framework'."
+            },
+            "sort": {
+              "type": "string",
+              "enum": [
+                "stars",
+                "updated"
+              ],
+              "default": "stars",
+              "description": "stars = nhiều sao nhất (mặc định, dùng cho 'phổ biến', 'nổi bật'); updated = cập nhật gần đây nhất."
+            },
+            "limit": {
+              "type": "integer",
+              "default": 5,
+              "description": "Số repo cần lấy (1-20). Lấy đúng con số người dùng nêu."
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "save_note",
+        "description": "Lưu một đoạn văn bản (bản tin, ghi chú) thành file markdown TRÊN MÁY, trong thư mục notes/. CHỈ dùng khi người dùng yêu cầu lưu / ghi lại thành file hoặc ghi chú VÀ nội dung cần lưu đã có trong hội thoại. Không gửi đi đâu cả: muốn đăng / gửi lên Telegram thì dùng send. Nếu chưa có nội dung để lưu thì hỏi lại bằng clarify, không tự bịa nội dung.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "content": {
+              "type": "string",
+              "default": "",
+              "description": "Toàn bộ nội dung markdown cần lưu, lấy nguyên văn từ hội thoại."
+            },
+            "title": {
+              "type": "string",
+              "default": "",
+              "description": "Tiêu đề ngắn của ghi chú, dùng để đặt tên file."
+            }
+          },
+          "required": [
+            "content"
+          ]
+        }
+      }
+    }
+  ]
+}

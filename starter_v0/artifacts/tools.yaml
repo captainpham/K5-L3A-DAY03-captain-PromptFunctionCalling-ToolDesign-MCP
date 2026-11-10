@@ -14,6 +14,23 @@
 #   - Make the `send` confirmation boundary explicit.
 #   - Declare your new tool(s) at the end of this file.
 tools:
+  - name: deduplicate
+    description: "Loại bài trùng URL trong danh sách item đã có, giữ item đầu tiên và thứ tự. Dùng khi người dùng muốn gộp nguồn hoặc bỏ link trùng trước khi làm bản tin. Không dùng để tìm kiếm, đọc URL hoặc so sánh nội dung bài. Chỉ so URL sau khi bỏ khoảng trắng hai đầu; item thiếu URL vẫn được giữ riêng và có warnings kèm vị trí item trong input."
+    parameters:
+      type: object
+      properties:
+        items:
+          type: array
+          description: "Danh sách item đã được cung cấp hoặc thu thập; không tự tạo item."
+          items:
+            type: object
+            properties:
+              title: {type: string}
+              url: {type: string}
+              source: {type: string}
+              summary: {type: string}
+              section: {type: string}
+      required: [items]
   # ---------------- Core tools ----------------
   - name: clarify
     description: "Gửi một câu hỏi cho người dùng."
@@ -123,3 +140,43 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  # ---------------- Team tools (new) ----------------
+  - name: hackernews
+    description: "Tìm bài (story) trên Hacker News theo từ khóa. CHỈ dùng khi người dùng nhắc rõ Hacker News / HN. Không dùng cho tin tức web chung (dùng lookup) hay bài đăng Twitter/X (dùng social_search)."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa chủ đề, ví dụ 'AI agents'. Không kèm chữ 'Hacker News'."}
+        sort: {type: string, enum: [relevance, date], default: "relevance", description: "relevance = khớp nhất / nổi bật (mặc định); date = mới nhất trước, dùng khi người dùng nói 'mới nhất', 'gần đây'."}
+        limit: {type: integer, default: 5, description: "Số bài cần lấy (1-20). Lấy đúng con số người dùng nêu."}
+      required: [query]
+
+  - name: wikipedia
+    description: "Tra định nghĩa / kiến thức nền về một khái niệm, người, tổ chức trên Wikipedia. CHỈ dùng khi người dùng nhắc rõ Wikipedia / wiki. Không dùng cho tin tức mới hay sự kiện đang diễn ra (dùng lookup)."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Tên khái niệm cần tra, ví dụ 'Transformer (deep learning)'."}
+        lang: {type: string, enum: [vi, en], default: "vi", description: "Ngôn ngữ Wikipedia: vi (mặc định) hoặc en khi người dùng yêu cầu bản tiếng Anh."}
+        limit: {type: integer, default: 1, description: "Số bài viết trả về (1-5)."}
+      required: [query]
+
+  - name: github_repos
+    description: "Tìm repository mã nguồn công khai trên GitHub theo từ khóa. CHỈ dùng khi người dùng muốn tìm repo / thư viện / project mã nguồn trên GitHub. Không dùng để đọc một URL cụ thể (dùng fetch) hay tìm bài báo khoa học (dùng papers)."
+    parameters:
+      type: object
+      properties:
+        query: {type: string, default: "", description: "Từ khóa tìm repo, ví dụ 'llm agent framework'."}
+        sort: {type: string, enum: [stars, updated], default: "stars", description: "stars = nhiều sao nhất (mặc định, dùng cho 'phổ biến', 'nổi bật'); updated = cập nhật gần đây nhất."}
+        limit: {type: integer, default: 5, description: "Số repo cần lấy (1-20). Lấy đúng con số người dùng nêu."}
+      required: [query]
+
+  - name: save_note
+    description: "Lưu một đoạn văn bản (bản tin, ghi chú) thành file markdown TRÊN MÁY, trong thư mục notes/. CHỈ dùng khi người dùng yêu cầu lưu / ghi lại thành file hoặc ghi chú VÀ nội dung cần lưu đã có trong hội thoại. Không gửi đi đâu cả: muốn đăng / gửi lên Telegram thì dùng send. Nếu chưa có nội dung để lưu thì hỏi lại bằng clarify, không tự bịa nội dung."
+    parameters:
+      type: object
+      properties:
+        content: {type: string, default: "", description: "Toàn bộ nội dung markdown cần lưu, lấy nguyên văn từ hội thoại."}
+        title: {type: string, default: "", description: "Tiêu đề ngắn của ghi chú, dùng để đặt tên file."}
+      required: [content]
