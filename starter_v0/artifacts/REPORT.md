@@ -7,7 +7,7 @@
 ## Team
 
 - Team: Captian
-- Members: Nguyễn Văn Vinh
+- Members: Nguyễn Văn Vinh - 2A202603672 Phạm Cát Tân - 2A202603678, Trần Minh Nhật - 2A202603684, 
 - Provider/model: OpenRouter / `openai/gpt-4o-mini` (dùng cùng một model cho mọi version)
 
 ---
@@ -20,7 +20,7 @@ Research agent tiếng Việt: tìm tin trên web, xem tweet theo tài khoản h
 
 **Link dùng thử (deploy):** 
 
-> URL: <!-- TODO: dán link trycloudflare.com sau khi chạy `streamlit run app.py` và `cloudflared tunnel --url http://localhost:8501` -->
+> URL: https://problems-length-manner-retrieval.trycloudflare.com 
 
 ## A2. Tool agent có
 
