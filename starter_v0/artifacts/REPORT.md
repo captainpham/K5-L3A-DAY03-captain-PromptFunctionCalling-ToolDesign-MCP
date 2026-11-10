@@ -13,7 +13,7 @@
 
 Captain Research Agent tìm thông tin trên web, Hacker News, Wikipedia, GitHub và arXiv; đọc URL, tra policy nội bộ và tổng hợp thành bản tin. Agent có thể loại URL trùng, lưu ghi chú markdown trên máy chủ, hỏi lại khi thiếu thông tin và yêu cầu xác nhận trước khi gửi Telegram.
 
-**Link demo tạm:** https://impressive-lamp-bracelet-basics.trycloudflare.com
+**Link demo tạm:** https://problems-length-manner-retrieval.trycloudflare.com
 
 UI được host local trên máy cá nhân. Link chỉ hoạt động khi máy có mạng và cả Streamlit lẫn tunnel đang chạy; push GitHub không tự tạo server. Chạy `uv run python -m streamlit run app.py`, mở `http://localhost:8501`. Xem [hướng dẫn UI](../UI-README.md).
 
