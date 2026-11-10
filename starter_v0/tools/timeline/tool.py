@@ -40,11 +40,14 @@ def _tweet_item(raw: dict[str, Any]) -> dict[str, Any]:
 def _tweets_from(data: dict[str, Any], limit: int) -> list[dict[str, Any]]:
     raw_items = data.get("timeline") or data.get("tweets") or []
     items = [_tweet_item(item) for item in raw_items if item.get("tweet_id") or item.get("id")]
-    return items[: int(limit or 5)]
+    count = int(limit or 5)
+    return items[: count if count > 0 else 5]
 
 
 def get_user_tweets(screenname: str = "", limit: int = 5) -> dict[str, Any]:
     try:
+        # The API expects a bare handle; models often send "@handle".
+        screenname = str(screenname or "").strip().lstrip("@")
         data = _twitter_get("/timeline.php", {"screenname": screenname})
         return {"tool": "get_user_tweets", "screenname": screenname, "items": _tweets_from(data, limit)}
     except Exception as exc:

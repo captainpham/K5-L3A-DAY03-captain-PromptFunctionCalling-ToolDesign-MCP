@@ -3,5 +3,106 @@
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_hackernews_routing",
+      "phase": "B", "suite": "group",
+      "query": "Trên Hacker News đang có bài nào nổi bật về AI agents?",
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "hackernews", "args": {"sort": "relevance"}}]},
+      "metadata": {"skill": "routing_new_tool_hackernews", "difficulty": "medium", "what_it_tests": "Người dùng nhắc rõ Hacker News → hackernews, không phải lookup hay social_search; 'nổi bật' → sort=relevance."}
+    },
+    {
+      "id": "G02_github_sort_limit_args",
+      "phase": "B", "suite": "group",
+      "query": "Tìm 3 repo GitHub nhiều sao nhất về RAG",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "github_repos", "args": {"sort": "stars", "limit": 3}}]},
+      "metadata": {"skill": "arg_github_sort_limit", "difficulty": "medium", "what_it_tests": "Tìm repo → github_repos; 'nhiều sao nhất' → sort=stars, '3 repo' → limit=3."}
+    },
+    {
+      "id": "G03_wikipedia_lang_arg",
+      "phase": "B", "suite": "group",
+      "query": "Tra Wikipedia tiếng Anh giúp mình: Retrieval-augmented generation là gì?",
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "wikipedia", "args": {"lang": "en"}}]},
+      "metadata": {"skill": "arg_wikipedia_lang", "difficulty": "medium", "what_it_tests": "Nhắc rõ Wikipedia → wikipedia (không phải lookup); 'tiếng Anh' → lang=en thay vì mặc định vi."}
+    },
+    {
+      "id": "G04_save_note_missing_content",
+      "phase": "B", "suite": "group",
+      "query": "Lưu lại thành ghi chú giúp mình nhé",
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]},
+      "metadata": {"skill": "clarify_missing_note_content", "difficulty": "medium", "what_it_tests": "Yêu cầu lưu ghi chú nhưng chưa có nội dung → hỏi lại, KHÔNG tự bịa nội dung để gọi save_note."}
+    },
+    {
+      "id": "G05_save_local_not_send",
+      "phase": "B", "suite": "group",
+      "query": "Lưu đoạn sau vào file ghi chú trên máy, đừng gửi đi đâu cả: 'Bản tin thử nghiệm: nhóm đã chạy xong baseline v0.'",
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "save_note", "args": {}}]},
+      "metadata": {"skill": "boundary_local_write_vs_send", "difficulty": "medium", "what_it_tests": "Ghi file cục bộ khi đã có nội dung → save_note ngay; KHÔNG gọi send (hành động ra ngoài) và không cần clarify."}
+    },
+    {
+      "id": "GM01_switch_to_hackernews",
+      "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tin AI hôm nay có gì?"},
+        {"role": "user", "content": "Thế trên Hacker News thì sao?"},
+        {"role": "user", "content": "Lấy 3 bài mới nhất thôi"}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {"tool_calls": [{"name": "hackernews", "args": {"sort": "date", "limit": 3}}]},
+      "metadata": {"skill": "multiturn_switch_to_new_tool", "difficulty": "hard", "what_it_tests": "3 turns: chuyển nguồn từ web sang Hacker News, giữ chủ đề AI, 'mới nhất' → sort=date, '3 bài' → limit=3."}
+    },
+    {
+      "id": "GM02_clarify_then_save_note",
+      "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Lưu ghi chú giúp mình"},
+        {"role": "user", "content": "Nội dung là: Họp nhóm lúc 9 giờ sáng thứ Hai"},
+        {"role": "user", "content": "Đặt tiêu đề là Lịch họp"}
+      ],
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "save_note", "args": {"title": "Lịch họp"}}]},
+      "metadata": {"skill": "multiturn_fill_then_save", "difficulty": "hard", "what_it_tests": "3 turns: nội dung được bổ sung ở lượt 2, tiêu đề ở lượt 3 → save_note với title đúng, không hỏi lại nữa."}
+    },
+    {
+      "id": "GM03_github_sort_correction",
+      "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tìm repo GitHub về vector database"},
+        {"role": "user", "content": "À, sắp xếp theo mới cập nhật chứ không phải theo số sao"},
+        {"role": "user", "content": "Lấy 5 repo thôi"}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {"tool_calls": [{"name": "github_repos", "args": {"sort": "updated", "limit": 5}}]},
+      "metadata": {"skill": "multiturn_arg_correction_new_tool", "difficulty": "hard", "what_it_tests": "3 turns: sửa sort stars→updated ở lượt 2, limit=5 ở lượt 3, vẫn là github_repos."}
+    },
+    {
+      "id": "GM04_cancel_send_then_save",
+      "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Đăng bản tin này lên Telegram: 'AI digest: tuần này có 3 tin đáng chú ý.'"},
+        {"role": "user", "content": "À khoan, chưa gửi vội"},
+        {"role": "user", "content": "Lưu vào ghi chú trên máy trước đã"}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {"tool_calls": [{"name": "save_note", "args": {}}]},
+      "metadata": {"skill": "multiturn_cancel_external_action", "difficulty": "hard", "what_it_tests": "3 turns: người dùng rút lại yêu cầu gửi → KHÔNG gọi send; chỉ lưu cục bộ bằng save_note với nội dung đã có."}
+    },
+    {
+      "id": "GM05_still_missing_handle",
+      "phase": "B", "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tóm tắt giúp mình mấy tweet mới nhất"},
+        {"role": "user", "content": "Lấy 3 cái thôi"},
+        {"role": "user", "content": "Nhanh nhé, mình đang vội"}
+      ],
+      "failure_type": "missing_info",
+      "expect": {"tool_calls": [{"name": "clarify", "args": {"response_type": "text"}}]},
+      "metadata": {"skill": "multiturn_still_missing_info", "difficulty": "hard", "what_it_tests": "3 turns: người dùng bổ sung số lượng và hối thúc nhưng vẫn chưa nói tài khoản nào → vẫn phải clarify, không đoán handle."}
+    }
+  ]
 }

@@ -1,0 +1,122 @@
+# Local small-model variant (Step 7). Same declarations as tools.yaml v3, but only the 6 tools
+# the base suite needs. Hypothesis v4-local: fewer tools -> fewer wrong-tool picks by small models.
+tools:
+- name: clarify
+  description: 'Hỏi lại người dùng MỘT câu rồi dừng lại chờ trả lời. Dùng trong hai trường hợp: (1) thiếu thông tin bắt buộc mà không suy ra được từ hội thoại (không biết tài khoản nào, chưa có URL, chưa có nội dung) -> response_type=text; (2) cần xác nhận trước một hành động gửi/đăng ra bên ngoài -> response_type=yes_no. Không dùng khi thông tin đã đủ hoặc đã có ở các lượt trước.'
+  parameters:
+    type: object
+    properties:
+      question:
+        type: string
+        default: ''
+        description: Câu hỏi ngắn, hỏi đúng một thứ còn thiếu hoặc cần xác nhận.
+      response_type:
+        type: string
+        enum:
+        - text
+        - yes_no
+        - choice
+        default: text
+        description: text = cần người dùng bổ sung thông tin; yes_no = xin xác nhận Có/Không trước khi gửi/đăng; choice = chọn một trong options.
+      options:
+        type: array
+        default: []
+        items:
+          type: string
+        description: Danh sách lựa chọn, chỉ dùng khi response_type=choice.
+    required:
+    - question
+- name: timeline
+  description: Lấy các tweet/bài đăng gần đây CỦA MỘT TÀI KHOẢN Twitter/X cụ thể. Dùng khi người dùng nêu tên một người hoặc một tài khoản (ví dụ 'tweet mới nhất của Sam Altman'). Nếu người dùng nêu tên một người nổi tiếng, tự đổi tên đó thành handle rồi gọi tool, KHÔNG hỏi lại handle. Chỉ hỏi lại bằng clarify khi yêu cầu không nhắc tới người hay tài khoản nào. Không dùng để tìm tweet theo chủ đề (dùng social_search).
+  parameters:
+    type: object
+    properties:
+      screenname:
+        type: string
+        default: ''
+        description: 'Handle Twitter/X của tài khoản, viết liền, không có ''@''. Đổi tên người thành handle: Sam Altman -> sama, Elon Musk -> elonmusk, Andrej Karpathy -> karpathy.'
+      limit:
+        type: integer
+        default: 5
+        description: Số tweet cần lấy. Lấy đúng con số người dùng nêu (ví dụ '10 tweet' -> 10); mặc định 5.
+    required:
+    - screenname
+- name: social_search
+  description: Tìm tweet/bài đăng trên Twitter/X THEO CHỦ ĐỀ hoặc từ khóa (ví dụ 'mọi người đang bàn gì về GPT-5 trên Twitter'). Không dùng khi người dùng muốn bài của một tài khoản cụ thể (dùng timeline). Không dùng khi người dùng nói bỏ Twitter hoặc muốn tìm trên web/báo (dùng lookup).
+  parameters:
+    type: object
+    properties:
+      query:
+        type: string
+        default: ''
+        description: Chủ đề cốt lõi, ngắn gọn, ví dụ 'AI', 'OpenAI', 'GPT-5'. Không thêm các từ 'tweet', 'Twitter'.
+      search_type:
+        type: string
+        enum:
+        - Latest
+        - Top
+        default: Latest
+        description: Top = tweet phổ biến / nổi bật / top / nhiều tương tác; Latest = mới nhất (mặc định).
+      limit:
+        type: integer
+        default: 5
+        description: Số tweet cần lấy. Lấy đúng con số người dùng nêu; mặc định 5.
+    required:
+    - query
+- name: lookup
+  description: Tìm trên web (báo, blog, trang tin). Dùng cho tin tức/thời sự và tra cứu thông tin chung khi người dùng không đưa URL và không hỏi riêng về Twitter/X. Khi người dùng nói 'tìm trên web', 'tin tức', 'báo' thì dùng tool này, kể cả khi lượt trước đang nói về Twitter. Không dùng để đọc một URL đã có (dùng fetch). Không dùng cho tweet (dùng social_search hoặc timeline).
+  parameters:
+    type: object
+    properties:
+      query:
+        type: string
+        default: ''
+        description: 'Chỉ chủ đề cốt lõi, ngắn gọn, ví dụ ''AI'', ''robotics'', ''OpenAI''. KHÔNG thêm các từ ''news'', ''tin tức'', ''hôm nay'', ''mới nhất'': những ý đó thể hiện bằng topic và timeframe.'
+      topic:
+        type: string
+        enum:
+        - general
+        - news
+        default: general
+        description: Luôn ghi rõ. news = mọi yêu cầu về tin tức / thời sự / tin mới ('tin', 'tin tức', 'news', 'hôm nay có gì'); general = tra cứu thông tin chung.
+      timeframe:
+        type: string
+        enum:
+        - day
+        - week
+        - month
+        - year
+        default: week
+        description: Luôn ghi rõ. day = hôm nay / 24 giờ qua; week = tuần này; month = tháng này; year = năm nay. Trong hội thoại nhiều lượt, giữ timeframe của lượt trước nếu người dùng không đổi.
+      max_results:
+        type: integer
+        default: 5
+        description: Số kết quả; mặc định 5.
+    required:
+    - query
+- name: fetch
+  description: 'Đọc nội dung một URL cụ thể mà người dùng ĐÃ CUNG CẤP trong hội thoại (để tóm tắt, trích ý). Mỗi URL gọi một lần; hai URL thì gọi hai lần. Nếu người dùng nói ''bài này'', ''link này'' mà chưa đưa URL thì hỏi lại bằng clarify: không tự đoán URL và không thay bằng lookup.'
+  parameters:
+    type: object
+    properties:
+      url:
+        type: string
+        default: ''
+        description: URL đầy đủ, chép nguyên văn từ hội thoại.
+    required:
+    - url
+- name: send
+  description: 'Gửi văn bản lên kênh Telegram. Đây là hành động ra bên ngoài, không hoàn tác được. KHÔNG gọi tool này ngay khi người dùng vừa yêu cầu đăng/gửi: trước hết gọi clarify với response_type=yes_no để xin xác nhận. Chỉ gọi send (confirmed=true) sau khi người dùng đã trả lời đồng ý ở một lượt sau. Muốn lưu file trên máy thì dùng save_note.'
+  parameters:
+    type: object
+    properties:
+      text:
+        type: string
+        default: ''
+        description: Nội dung sẽ gửi, lấy nguyên văn từ hội thoại. Không tự bịa nội dung.
+      confirmed:
+        type: boolean
+        default: false
+        description: true CHỈ khi người dùng đã xác nhận rõ ràng ở một lượt trước. Nếu chưa có xác nhận thì không gọi tool này.
+    required:
+    - text

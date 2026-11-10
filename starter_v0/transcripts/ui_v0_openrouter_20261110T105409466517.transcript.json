@@ -1,0 +1,128 @@
+{
+  "transcript_id": "ui_v0_openrouter_20261110T105409466517",
+  "version": "v0",
+  "artifact_version": "v0+pdea983b88aaf+t607756f6f1bf",
+  "prompt_hash": "dea983b88aaf1904b90b9581e0ad5633e005335022c76bc27ce4c183e886801b",
+  "tools_hash": "607756f6f1bf431a8e10dbc12ab025acc76f53953cc9e7a4745209f141f7a957",
+  "ui": "streamlit",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "D:\\VINAI\\Day03-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\VINAI\\Day03-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "history_window": 5,
+  "max_tool_rounds": 4,
+  "created_at": "2026-11-10T10:54:09",
+  "updated_at": "2026-11-10T10:55:16",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T10:54:23",
+      "user": "Tóm tắt 5 tweet mới nhất giúp mình",
+      "status": "waiting_for_user",
+      "assistant_text": "Bạn muốn tóm tắt tweet mới nhất của tài khoản nào?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "clarify",
+              "args": {
+                "question": "Bạn muốn tóm tắt tweet mới nhất của tài khoản nào?",
+                "response_type": "text"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "clarify",
+              "args": {
+                "question": "Bạn muốn tóm tắt tweet mới nhất của tài khoản nào?",
+                "response_type": "text"
+              },
+              "result": {
+                "tool": "ask_user",
+                "question": "Bạn muốn tóm tắt tweet mới nhất của tài khoản nào?",
+                "response_type": "text",
+                "options": [],
+                "awaiting_user": true
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn tóm tắt tweet mới nhất của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn tóm tắt tweet mới nhất của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T10:54:25"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-11-10T10:55:08",
+      "user": "Đăng bản tin này lên Telegram giúp mình",
+      "status": "waiting_for_user",
+      "assistant_text": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "clarify",
+              "args": {
+                "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+                "response_type": "yes_no"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "clarify",
+              "args": {
+                "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+                "response_type": "yes_no"
+              },
+              "result": {
+                "tool": "ask_user",
+                "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+                "response_type": "yes_no",
+                "options": [],
+                "awaiting_user": true
+              }
+            }
+          ]
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có chắc chắn muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T10:55:16"
+    }
+  ]
+}

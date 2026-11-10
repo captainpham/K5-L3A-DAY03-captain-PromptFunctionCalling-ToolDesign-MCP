@@ -1,0 +1,852 @@
+{
+  "run_id": "v3_B_group_openrouter_20261110T104114839202",
+  "version": "v3",
+  "artifact_version": "v3+pdea983b88aaf+t607756f6f1bf",
+  "prompt_hash": "dea983b88aaf1904b90b9581e0ad5633e005335022c76bc27ce4c183e886801b",
+  "tools_hash": "607756f6f1bf431a8e10dbc12ab025acc76f53953cc9e7a4745209f141f7a957",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "D:\\VINAI\\Day03-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\VINAI\\Day03-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-11-10T10:41:14",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 9,
+    "case_accuracy": 0.9,
+    "tool_routing_accuracy": 0.9,
+    "argument_accuracy": 0.9,
+    "multiturn_accuracy": 0.8,
+    "failure_counts": {
+      "wrong_tool": 1
+    },
+    "observed_mismatch_counts": {
+      "extra_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "G01_hackernews_routing",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_new_tool_hackernews",
+        "difficulty": "medium",
+        "what_it_tests": "Người dùng nhắc rõ Hacker News → hackernews, không phải lookup hay social_search; 'nổi bật' → sort=relevance."
+      },
+      "input": "Trên Hacker News đang có bài nào nổi bật về AI agents?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "sort": "relevance"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "AI agents",
+              "sort": "relevance",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "hackernews",
+          "args": {
+            "query": "AI agents",
+            "sort": "relevance",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_hackernews",
+            "query": "AI agents",
+            "sort": "relevance",
+            "items": [
+              {
+                "title": "An AI agent published a hit piece on me",
+                "url": "https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/",
+                "source": "theshamblog.com",
+                "summary": "2346 points, 951 comments, by scottshambaugh",
+                "discussion_url": "https://news.ycombinator.com/item?id=46990729",
+                "date": "2026-02-12T16:23:24Z"
+              },
+              {
+                "title": "AI agent bankrupted their operator while trying to scan DN42",
+                "url": "https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/",
+                "source": "lantian.pub",
+                "summary": "1467 points, 536 comments, by xiaoyu2006",
+                "discussion_url": "https://news.ycombinator.com/item?id=48500012",
+                "date": "2026-06-12T04:42:53Z"
+              },
+              {
+                "title": "OpenCode – Open source AI coding agent",
+                "url": "https://opencode.ai/",
+                "source": "opencode.ai",
+                "summary": "1274 points, 618 comments, by rbanffy",
+                "discussion_url": "https://news.ycombinator.com/item?id=47460525",
+                "date": "2026-03-20T21:03:52Z"
+              },
+              {
+                "title": "AI agent opens a PR write a blogpost to shames the maintainer who closes it",
+                "url": "https://github.com/matplotlib/matplotlib/pull/31132",
+                "source": "github.com",
+                "summary": "953 points, 750 comments, by wrxd",
+                "discussion_url": "https://news.ycombinator.com/item?id=46987559",
+                "date": "2026-02-12T11:46:01Z"
+              },
+              {
+                "title": "Opus 4.5 is not the normal AI agent experience that I have had thus far",
+                "url": "https://burkeholland.github.io/posts/opus-4-5-change-everything/",
+                "source": "burkeholland.github.io",
+                "summary": "879 points, 1353 comments, by tbassetto",
+                "discussion_url": "https://news.ycombinator.com/item?id=46515696",
+                "date": "2026-01-06T17:45:37Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_github_sort_limit_args",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_github_sort_limit",
+        "difficulty": "medium",
+        "what_it_tests": "Tìm repo → github_repos; 'nhiều sao nhất' → sort=stars, '3 repo' → limit=3."
+      },
+      "input": "Tìm 3 repo GitHub nhiều sao nhất về RAG",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_repos",
+            "args": {
+              "sort": "stars",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_repos",
+            "args": {
+              "query": "RAG",
+              "sort": "stars",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_repos",
+          "args": {
+            "query": "RAG",
+            "sort": "stars",
+            "limit": 3
+          },
+          "result": {
+            "tool": "search_github_repos",
+            "query": "RAG",
+            "sort": "stars",
+            "items": [
+              {
+                "title": "langgenius/dify",
+                "url": "https://github.com/langgenius/dify",
+                "source": "github.com",
+                "summary": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+                "stars": 160787,
+                "language": "Python",
+                "date": "2026-11-10T03:35:59Z"
+              },
+              {
+                "title": "open-webui/open-webui",
+                "url": "https://github.com/open-webui/open-webui",
+                "source": "github.com",
+                "summary": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...)",
+                "stars": 158246,
+                "language": "Svelte",
+                "date": "2026-11-10T03:34:10Z"
+              },
+              {
+                "title": "langchain-ai/langchain",
+                "url": "https://github.com/langchain-ai/langchain",
+                "source": "github.com",
+                "summary": "The agent engineering platform.",
+                "stars": 149285,
+                "language": "Python",
+                "date": "2026-11-10T03:33:37Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_wikipedia_lang_arg",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "arg_wikipedia_lang",
+        "difficulty": "medium",
+        "what_it_tests": "Nhắc rõ Wikipedia → wikipedia (không phải lookup); 'tiếng Anh' → lang=en thay vì mặc định vi."
+      },
+      "input": "Tra Wikipedia tiếng Anh giúp mình: Retrieval-augmented generation là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "lang": "en"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wikipedia",
+            "args": {
+              "query": "Retrieval-augmented generation",
+              "lang": "en"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wikipedia",
+          "args": {
+            "query": "Retrieval-augmented generation",
+            "lang": "en"
+          },
+          "result": {
+            "tool": "wikipedia_summary",
+            "query": "Retrieval-augmented generation",
+            "lang": "en",
+            "items": [
+              {
+                "title": "Retrieval-augmented generation",
+                "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+                "source": "en.wikipedia.org",
+                "summary": "Retrieval-augmented generation (RAG) is a technique that enables large language models (LLMs) to retrieve and incorporate new information from external data sources. With RAG, LLMs first refer to a specified set of documents, then respond to user queries. These documents supplement information from the LLM's pre-existing training data. This allows LLMs to use domain-specific and/or updated information that is not available in the training data. For example, this enables LLM-based chatbots to access internal company data or generate responses based on authoritative sources. The technique was first proposed in 2020 and has since become a widely adopted approach in modern AI systems.\nRAG improves LLMs by incorporating information retrieval before generating responses. Unlike LLMs that rely on static training data, RAG pulls relevant text from databases, uploaded documents, or web sources. According to Ars Technica, \"RAG is a way of improving LLM performance, in essence by blending the LLM process with a web search or other document look-up process to help LLMs stick to the facts.\" This method helps reduce AI hallucinations, which have caused chatbots to describe policies that don't exist, or recommend nonexistent legal cases to lawyers that are looking for citations to support their arguments.\nRAG also reduces the need to retrain LLMs with new data, saving on computational and financial costs. Beyond efficiency gains, RAG also allows LLMs to include sources in their responses, s"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_save_note_missing_content",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_note_content",
+        "difficulty": "medium",
+        "what_it_tests": "Yêu cầu lưu ghi chú nhưng chưa có nội dung → hỏi lại, KHÔNG tự bịa nội dung để gọi save_note."
+      },
+      "input": "Lưu lại thành ghi chú giúp mình nhé",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn lưu nội dung gì thành ghi chú?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn lưu nội dung gì thành ghi chú?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn lưu nội dung gì thành ghi chú?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_save_local_not_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "boundary_local_write_vs_send",
+        "difficulty": "medium",
+        "what_it_tests": "Ghi file cục bộ khi đã có nội dung → save_note ngay; KHÔNG gọi send (hành động ra ngoài) và không cần clarify."
+      },
+      "input": "Lưu đoạn sau vào file ghi chú trên máy, đừng gửi đi đâu cả: 'Bản tin thử nghiệm: nhóm đã chạy xong baseline v0.'",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_note",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "save_note",
+            "args": {
+              "content": "Bản tin thử nghiệm: nhóm đã chạy xong baseline v0.",
+              "title": "Bản tin thử nghiệm"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "save_note",
+          "args": {
+            "content": "Bản tin thử nghiệm: nhóm đã chạy xong baseline v0.",
+            "title": "Bản tin thử nghiệm"
+          },
+          "result": {
+            "tool": "save_note",
+            "status": "saved",
+            "path": "D:\\VINAI\\Day03-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\notes\\20261110T104057354939_ban-tin-thu-nghiem.md",
+            "chars": 73
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM01_switch_to_hackernews",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_to_new_tool",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: chuyển nguồn từ web sang Hacker News, giữ chủ đề AI, 'mới nhất' → sort=date, '3 bài' → limit=3."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin AI hôm nay có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Thế trên Hacker News thì sao?"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 bài mới nhất thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hackernews",
+            "args": {
+              "sort": "date",
+              "limit": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day",
+              "max_results": 3
+            }
+          },
+          {
+            "name": "hackernews",
+            "args": {
+              "query": "AI",
+              "sort": "date",
+              "limit": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": "extra_tool_call",
+        "failure_type": "wrong_tool",
+        "failures": [
+          "extra tool call lookup"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "max_results": 3
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        },
+        {
+          "tool": "hackernews",
+          "args": {
+            "query": "AI",
+            "sort": "date",
+            "limit": 3
+          },
+          "result": {
+            "tool": "search_hackernews",
+            "query": "AI",
+            "sort": "date",
+            "items": [
+              {
+                "title": "Trump Says He Told AI Executive to Kiss His Family Goodbye Before Going to Jail",
+                "url": "https://gizmodo.com/trump-says-he-told-an-ai-executive-to-kiss-his-family-goodbye-before-going-to-jail-2000837040",
+                "source": "gizmodo.com",
+                "summary": "1 points, 0 comments, by nsagent",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435784",
+                "date": "2026-11-10T03:40:24Z"
+              },
+              {
+                "title": "AI Second Brain Masterclass [video]",
+                "url": "https://www.youtube.com/watch?v=QY5joNgjR5o",
+                "source": "youtube.com",
+                "summary": "1 points, 0 comments, by gamescorpion",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435693",
+                "date": "2026-11-10T03:25:24Z"
+              },
+              {
+                "title": "Show HN: ZTHR – what replaces code review when AI agents write all the code",
+                "url": "https://zthr.ai/",
+                "source": "zthr.ai",
+                "summary": "2 points, 0 comments, by SymmetricalZero",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435672",
+                "date": "2026-11-10T03:21:56Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM02_clarify_then_save_note",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_fill_then_save",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: nội dung được bổ sung ở lượt 2, tiêu đề ở lượt 3 → save_note với title đúng, không hỏi lại nữa."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Lưu ghi chú giúp mình"
+        },
+        {
+          "role": "user",
+          "content": "Nội dung là: Họp nhóm lúc 9 giờ sáng thứ Hai"
+        },
+        {
+          "role": "user",
+          "content": "Đặt tiêu đề là Lịch họp"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_note",
+            "args": {
+              "title": "Lịch họp"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "save_note",
+            "args": {
+              "content": "Họp nhóm lúc 9 giờ sáng thứ Hai",
+              "title": "Lịch họp"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "save_note",
+          "args": {
+            "content": "Họp nhóm lúc 9 giờ sáng thứ Hai",
+            "title": "Lịch họp"
+          },
+          "result": {
+            "tool": "save_note",
+            "status": "saved",
+            "path": "D:\\VINAI\\Day03-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\notes\\20261110T104109187146_lich-hop.md",
+            "chars": 44
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM03_github_sort_correction",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_arg_correction_new_tool",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: sửa sort stars→updated ở lượt 2, limit=5 ở lượt 3, vẫn là github_repos."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm repo GitHub về vector database"
+        },
+        {
+          "role": "user",
+          "content": "À, sắp xếp theo mới cập nhật chứ không phải theo số sao"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 5 repo thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_repos",
+            "args": {
+              "sort": "updated",
+              "limit": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_repos",
+            "args": {
+              "query": "vector database",
+              "sort": "updated",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_repos",
+          "args": {
+            "query": "vector database",
+            "sort": "updated",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_github_repos",
+            "query": "vector database",
+            "sort": "updated",
+            "items": [
+              {
+                "title": "milvus-io/milvus",
+                "url": "https://github.com/milvus-io/milvus",
+                "source": "github.com",
+                "summary": "Milvus is a high-performance, cloud-native vector database built for scalable vector ANN search",
+                "stars": 46621,
+                "language": "Go",
+                "date": "2026-11-10T03:40:27Z"
+              },
+              {
+                "title": "jackson-lafrance/vql",
+                "url": "https://github.com/jackson-lafrance/vql",
+                "source": "github.com",
+                "summary": "Combining vector and relational databases into one DBMS",
+                "stars": 0,
+                "language": "C++",
+                "date": "2026-11-10T03:40:02Z"
+              },
+              {
+                "title": "pingcap/tidb",
+                "url": "https://github.com/pingcap/tidb",
+                "source": "github.com",
+                "summary": "TiDB is built for agentic workloads that grow unpredictably, with ACID guarantees and native support for transactions, analytics, and vector search. No data silos. No noisy neighbors. No infrastructure ceiling.",
+                "stars": 40724,
+                "language": "Go",
+                "date": "2026-11-10T03:36:39Z"
+              },
+              {
+                "title": "lance-format/lance-flink",
+                "url": "https://github.com/lance-format/lance-flink",
+                "source": "github.com",
+                "summary": "Apache Flink Connector for Lance Vector Database",
+                "stars": 13,
+                "language": "Java",
+                "date": "2026-11-10T03:36:28Z"
+              },
+              {
+                "title": "rachmanzz/anchordb",
+                "url": "https://github.com/rachmanzz/anchordb",
+                "source": "github.com",
+                "summary": "Pure Go database engine with mmap storage, WAL durability, in-storage math, 2D spatial ray-casting, and directed causal graphs. Designed for edge, IoT, and embedded analytics.",
+                "stars": 3,
+                "language": "Go",
+                "date": "2026-11-10T03:36:02Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM04_cancel_send_then_save",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_cancel_external_action",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: người dùng rút lại yêu cầu gửi → KHÔNG gọi send; chỉ lưu cục bộ bằng save_note với nội dung đã có."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đăng bản tin này lên Telegram: 'AI digest: tuần này có 3 tin đáng chú ý.'"
+        },
+        {
+          "role": "user",
+          "content": "À khoan, chưa gửi vội"
+        },
+        {
+          "role": "user",
+          "content": "Lưu vào ghi chú trên máy trước đã"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "save_note",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "save_note",
+            "args": {
+              "content": "AI digest: tuần này có 3 tin đáng chú ý.",
+              "title": "AI Digest"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "save_note",
+          "args": {
+            "content": "AI digest: tuần này có 3 tin đáng chú ý.",
+            "title": "AI Digest"
+          },
+          "result": {
+            "tool": "save_note",
+            "status": "saved",
+            "path": "D:\\VINAI\\Day03-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\notes\\20261110T104113475587_ai-digest.md",
+            "chars": 54
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM05_still_missing_handle",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_still_missing_info",
+        "difficulty": "hard",
+        "what_it_tests": "3 turns: người dùng bổ sung số lượng và hối thúc nhưng vẫn chưa nói tài khoản nào → vẫn phải clarify, không đoán handle."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt giúp mình mấy tweet mới nhất"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 3 cái thôi"
+        },
+        {
+          "role": "user",
+          "content": "Nhanh nhé, mình đang vội"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn lấy tweet mới nhất của tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn lấy tweet mới nhất của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn lấy tweet mới nhất của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    }
+  ]
+}
